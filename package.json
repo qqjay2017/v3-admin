@@ -6,11 +6,11 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "install:husky": "yarn husky install",
-    "postinstall": "npm run install:husky"
+    "install:husky": "yarn husky install"
   },
   "dependencies": {
     "element-plus": "^1.0.2-beta.28",
+    "normalize.css": "^8.0.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -39,6 +39,7 @@
     "lint-staged": "^11.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "svg-sprite-loader": "^6.0.6",
     "typescript": "~4.1.5",
     "vue-cli-plugin-element-plus": "~0.0.13"
   },
