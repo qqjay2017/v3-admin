@@ -8,7 +8,7 @@
 - [tailwindcss英文文档](https://tailwindcss.com/)
 - [better-scroll](https://better-scroll.github.io/docs/zh-CN/guide/)
 - [commitlint](https://commitlint.js.org/#/guides-local-setup?id=install-husky)
-
+- [element-plus](https://element-plus.gitee.io/#/zh-CN/component/installation)
 
 
 ## 项目文档
