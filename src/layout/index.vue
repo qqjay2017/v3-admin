@@ -5,7 +5,9 @@
     </div>
     <div class="main-container">
       <div class="header">
-        <div class="navbar">navbar</div>
+        <div class="navbar">
+          <Breadcrumb />
+        </div>
         <div class="tags-view">tagsview</div>
       </div>
       <app-main />
@@ -16,9 +18,10 @@
 import { defineComponent } from 'vue'
 import Sidebar from '@/layout/components/sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
+import Breadcrumb from '@/layout/components/Breadcrumb/index.vue'
 export default defineComponent({
   name: 'Layout',
-  components: { Sidebar, AppMain },
+  components: { Breadcrumb, Sidebar, AppMain },
   setup () {
     return {}
   }
@@ -35,10 +38,10 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     .header {
-      background: cyan;
+      background: #fff;
       .navbar {
         height: 50px;
-        background: #1890ff;
+        background: #fff;
       }
       .tags-view {
         height: 34px;
