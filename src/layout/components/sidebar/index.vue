@@ -40,7 +40,10 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const activeMenu = computed(() => {
-      const { path } = route
+      const { path, meta } = route
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
       return path
     })
 
@@ -49,7 +52,7 @@ export default defineComponent({
     // 是否收起
     const isCollapse = ref(false)
     const menuRouters = computed(() => routes)
-    console.log(menuRouters)
+
     return {
       isCollapse,
       scssVariables,
