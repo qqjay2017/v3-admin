@@ -15,6 +15,12 @@
 
 `https://www.yuque.com/brolly/hgg6ly/cxt9fq`
 
+## vue3变化集合
+
+- [vue3 路由缓存](https://next.router.vuejs.org/guide/migration/index.html#router-view-keep-alive-and-transition)
+
+- [扩展 RouteMeta 来定义meta类型](https://next.router.vuejs.org/zh/guide/advanced/meta.html)
+
 ## commitlint
 
 

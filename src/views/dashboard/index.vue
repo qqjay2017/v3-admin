@@ -1,6 +1,7 @@
 <template>
  <div>
    <div>Dashboard page</div>
+   <ElInput v-model="model" />
    <svg-icon icon-class="bug"></svg-icon>
    <!-- icon-class svg图标名称 class-name 额外的自定义类名 @click绑定事件 -->
    <svg-icon icon-class="404" class-name="custom-class" @click="sayHi"></svg-icon>
@@ -9,15 +10,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { ElMessage } from 'element-plus'
+import { defineComponent, ref } from 'vue'
+import { ElMessage, ElInput } from 'element-plus'
 export default defineComponent({
   name: 'Dashboard',
+  components: {
+    ElInput
+  },
   setup () {
+    const model = ref('')
     const sayHi = () => {
       ElMessage('message')
     }
-    return { sayHi }
+    return { sayHi, model }
   }
 })
 </script>

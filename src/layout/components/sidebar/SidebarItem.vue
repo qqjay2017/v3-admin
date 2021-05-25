@@ -4,11 +4,12 @@
     <!-- 一个路由下只有一个子路由的时候 只渲染这个子路由 -->
     <template v-if="theOnlyOneChildRoute && (!theOnlyOneChildRoute.children || theOnlyOneChildRoute.noShowingChildren)">
       <SidebarItemLink
-        v-if="theOnlyOneChildRoute.meta"
+        v-if="theOnlyOneChildRoute && theOnlyOneChildRoute.meta"
         :to="resolvePath(theOnlyOneChildRoute.path)"
       >
         <el-menu-item :index="resolvePath(theOnlyOneChildRoute.path)">
-          <svg-icon  v-if="icon" class="menu-icon" :icon-class="icon"></svg-icon>
+          <i  v-if="icon && icon.includes('el-icon')" :class="icon"></i>
+          <svg-icon  v-else-if="icon" class="menu-icon" :icon-class="icon"></svg-icon>
           <template  #title>
             <span>{{ theOnlyOneChildRoute.meta.title }}</span>
           </template>
@@ -97,7 +98,7 @@ export default defineComponent({
     })
 
     const icon = computed(() => {
-      return theOnlyOneChildRoute.value?.meta?.icon || (props.item.meta && props.item.meta.icon)
+      return (theOnlyOneChildRoute.value?.meta?.icon || (props.item.meta && props.item.meta.icon)) as string
     })
 
     // 利用path.resolve 根据父路径+子路径 解析成正确路径 子路径可能是相对的
