@@ -1,14 +1,9 @@
-/* eslint-disable */
-declare module '*.vue' {
-  import type {DefineComponent} from 'vue'
-  const component: DefineComponent<{}, {}, any>
-  export default component
-}
-
-
-// typings.d.ts or router.ts
 import 'vue-router'
-
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, any>
+  export default DefineComponent
+}
 declare module 'vue-router' {
   interface RouteMeta {
     // 是可选的

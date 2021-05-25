@@ -49,6 +49,7 @@ export default defineComponent({
     // 是否收起
     const isCollapse = ref(false)
     const menuRouters = computed(() => routes)
+    console.log(menuRouters)
     return {
       isCollapse,
       scssVariables,

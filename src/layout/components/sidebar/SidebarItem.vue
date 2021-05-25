@@ -2,7 +2,6 @@
   <div v-if="!item.meta || !item.meta.hidden"
        class="sidebar-item-container">
     <!-- 一个路由下只有一个子路由的时候 只渲染这个子路由 -->
-
     <template v-if="theOnlyOneChildRoute && (!theOnlyOneChildRoute.children || theOnlyOneChildRoute.noShowingChildren)">
       <SidebarItemLink
         v-if="theOnlyOneChildRoute.meta"
@@ -17,7 +16,7 @@
       </SidebarItemLink>
 
     </template>
-    <!-- 多个子路由时 -->
+    <!-- 多个子路由时 递归el-submenu-->
     <el-submenu
     v-else
     :index="resolvePath(item.path)"
@@ -32,7 +31,7 @@
         <span class="submenu-title">{{ item.meta.title }}</span>
       </template>
       <SidebarItem
-        v-for="child in item.children"
+        v-for="child in itemSimpleChildren"
         :key="child.path"
         :is-nest="true"
         :item="child"
@@ -69,30 +68,24 @@ export default defineComponent({
   },
   setup (props) {
     const { item } = toRefs(props)
-    // // 子路由数量
-    const showingChildNumber = computed(() => {
-      const children = (item.value.children || []).filter((child) => {
-        if (child.meta && child.meta.hidden) {
-          return false
-        }
-        return true
-      })
-      return children.length
+    //  子路需要渲染的,排除hidden的
+    const showingChild = computed(() => {
+      return (item.value.children || []).filter((child) => !(child.meta && child.meta.hidden))
     })
-    //  // 要渲染的单个路由 如果该路由只有一个子路由 默认直接渲染这个子路由
-    const theOnlyOneChildRoute = computed<RouteRecordRaw | null >(() => {
-      // 多个children时 直接return null 多children需要用el-submenu来渲染并递归
+    // 子路由数量
+    const showingChildNumber = computed(() => {
+      return showingChild.value.length
+    })
+
+    //  要渲染的单个路由 如果该路由只有一个子路由 默认直接渲染这个子路由
+    const theOnlyOneChildRoute = computed(() => {
+      // 多个children时 直接return null ,就不走单路由模式了,需要用el-submenu来渲染并递归
       if (showingChildNumber.value > 1) {
         return null
       }
-      // 只有一个子路由 还要筛选路由meta里有无hidden属性 hidden：true则过滤出去 不用管
-      // 路由meta里我们会配置hidden属性表示不渲染成菜单，比如login 401 404页面是不渲染成菜单的
-      if (item.value.children) {
-        for (const child of item.value.children) {
-          if (!child.meta || !child.meta.hidden) {
-            return child as RouteRecordRaw
-          }
-        }
+      if (showingChildNumber.value === 1) {
+        const oneChild = showingChild.value[0]
+        return { path: oneChild.path, name: oneChild.name, meta: oneChild.meta }
       }
       //  // showingChildNumber === 0 无可渲染的子路由 （可能有子路由 hidden属性为true）
       // 无可渲染children时 把当前路由item作为仅有的子路由渲染
@@ -116,10 +109,20 @@ export default defineComponent({
       }
       return path.resolve(props.basePath, childPath)
     }
+
+    const itemSimpleChildren = computed(() => {
+      if (showingChildNumber.value === 1) {
+        return null
+      }
+      return item?.value?.children?.map((child) => ({
+        path: child.path, name: child.name, meta: child.meta
+      }))
+    })
     return {
       theOnlyOneChildRoute,
       icon,
-      resolvePath
+      resolvePath,
+      itemSimpleChildren
     }
   }
 })
