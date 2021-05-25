@@ -42,6 +42,11 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     path: '/guide',
     component: Layout,
     redirect: '/guide/index',
+    meta: {
+      title: 'Guide父级',
+      icon: 'guide',
+      alwaysShow: true
+    },
     children: [
       {
         path: 'index',
@@ -49,8 +54,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
         meta: {
           title: 'Guide',
-          icon: 'guide',
-          hidden: true
+          icon: 'guide'
+
         }
       }
     ]

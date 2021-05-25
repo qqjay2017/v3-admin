@@ -1,8 +1,9 @@
 <template>
   <div v-if="!item.meta || !item.meta.hidden"
        class="sidebar-item-container">
-    <!-- 一个路由下只有一个子路由的时候 只渲染这个子路由 -->
-    <template v-if="theOnlyOneChildRoute && (!theOnlyOneChildRoute.children || theOnlyOneChildRoute.noShowingChildren)">
+    <!--  只渲染一个路由 并且路由只有一个子路由时直接渲染这个子路由  -->
+
+    <template v-if="theOnlyOneChildRoute && isRenderSingleRoute">
       <SidebarItemLink
         v-if="theOnlyOneChildRoute && theOnlyOneChildRoute.meta"
         :to="resolvePath(theOnlyOneChildRoute.path)"
@@ -31,8 +32,9 @@
         ></svg-icon>
         <span class="submenu-title">{{ item.meta.title }}</span>
       </template>
+
       <SidebarItem
-        v-for="child in itemSimpleChildren"
+        v-for="child in item.children"
         :key="child.path"
         :is-nest="true"
         :item="child"
@@ -78,6 +80,8 @@ export default defineComponent({
       return showingChild.value.length
     })
 
+    const noShowingChildren = computed(() => showingChildNumber.value === 0)
+
     //  要渲染的单个路由 如果该路由只有一个子路由 默认直接渲染这个子路由
     const theOnlyOneChildRoute = computed(() => {
       // 多个children时 直接return null ,就不走单路由模式了,需要用el-submenu来渲染并递归
@@ -86,13 +90,18 @@ export default defineComponent({
       }
       if (showingChildNumber.value === 1) {
         const oneChild = showingChild.value[0]
-        return { path: oneChild.path, name: oneChild.name, meta: oneChild.meta }
+
+        return {
+          ...oneChild,
+          component: {}
+        }
       }
       //  // showingChildNumber === 0 无可渲染的子路由 （可能有子路由 hidden属性为true）
       // 无可渲染children时 把当前路由item作为仅有的子路由渲染
       return {
         ...props.item,
         path: '',
+        component: {},
         noShowingChildren: true // 无可渲染children
       }
     })
@@ -111,19 +120,20 @@ export default defineComponent({
       return path.resolve(props.basePath, childPath)
     }
 
-    const itemSimpleChildren = computed(() => {
-      if (showingChildNumber.value === 1) {
-        return null
-      }
-      return item?.value?.children?.map((child) => ({
-        path: child.path, name: child.name, meta: child.meta
-      }))
+    // 强制走menu item
+    const alwaysShowRootMenu = computed(() => {
+      return item.value.meta && item.value.meta.alwaysShow
     })
+    // 是否只有一条可渲染路由(没有children,走不了menu item)
+    const isRenderSingleRoute = computed(() => {
+      return !alwaysShowRootMenu.value && (!theOnlyOneChildRoute?.value?.children || noShowingChildren.value)
+    })
+
     return {
       theOnlyOneChildRoute,
       icon,
       resolvePath,
-      itemSimpleChildren
+      isRenderSingleRoute
     }
   }
 })
