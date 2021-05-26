@@ -2,7 +2,7 @@
     <div class="app-main">
         <router-view v-slot={Component}>
             <transition name="fade-transition" mode="out-in">
-                <keep-alive>
+                <keep-alive :include="[]">
                     <component :is="Component" :key="key" />
                 </keep-alive>
             </transition>

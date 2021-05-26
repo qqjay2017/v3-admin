@@ -1,5 +1,6 @@
-import { getModule, Module, Mutation, MutationAction, VuexModule } from 'vuex-module-decorators'
+import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import store from '@/store'
+import { Size } from '@/plugins/element'
 
 const NAME = 'app'
 
@@ -14,21 +15,19 @@ const wait = () => {
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 export default class MyModule extends VuexModule {
   sidebar = {
-    opened: JSON.parse(window.sessionStorage.getItem('vuex_app') || '{ app: { sidebar: { opened: true } } }').app.sidebar.opened
+    opened: true
   }
 
-  // @MutationAction
-  //  async updateSome () :Promise<{someField:any}> {
-  //    const res = await wait()
-  //
-  //    return {
-  //      someField: res
-  //    }
-  //  }
+  size:Size = 'small'
 
   @Mutation
   toggleSidebar () {
     this.sidebar.opened = !this.sidebar.opened
+  }
+
+  @Mutation
+  setSize (size:Size = 'small') {
+    this.size = size
   }
 }
 

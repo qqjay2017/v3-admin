@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- 测试展开收起 -->
-    <h5 @click="isCollapse=!isCollapse">展收测试</h5>
     <el-menu
       class="sidebar-container-menu"
       mode="vertical"

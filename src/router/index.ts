@@ -3,6 +3,20 @@ import Layout from '@/layout/index.vue'
 
 const constantRoutes: Array<RouteRecordRaw> = [
   {
+    path: '/redirect',
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        // 带参数的动态路由正则匹配
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index.vue')
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/dashboard',

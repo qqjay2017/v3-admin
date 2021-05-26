@@ -11,12 +11,16 @@ import '@/styles/index.scss'
 
 // svg icons
 import initSvgIcon from '@/icons/index'
+import { appStore } from '@/store/modules/app'
 
 const app = createApp(App)
+const size = appStore.size
 
 app
   .use(store, storeKey)
   .use(router)
-  .use(installElementPlus)
+  .use(installElementPlus, {
+    size
+  })
   .use(initSvgIcon)
   .mount('#app')

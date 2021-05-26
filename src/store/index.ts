@@ -12,9 +12,9 @@ const persisteAppState = createPersistedState({
 })
 
 const store = createStore({
-  plugins: [
-    persisteAppState
-  ]
+  // plugins: [
+  //   persisteAppState
+  // ]
 
 })
 export default store
