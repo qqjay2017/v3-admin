@@ -35,18 +35,11 @@ export default defineComponent({
     flex: 1;
     display: flex;
     flex-direction: column;
-    .header {
-      background: #fff;
 
-      .tags-view {
-        height: 34px;
-        background: #12efff;
-      }
-    }
     .app-main {
       /* 50= navbar  50  如果有tagsview + 34  */
       min-height: calc(100vh - 84px);
-      background: red;
+
     }
   }
 }

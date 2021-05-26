@@ -1,7 +1,6 @@
 <template>
   <div class="navbar">
-    <Hambuger @toggleClick="updateSome" />
-    {{some}}
+    <Hambuger @toggleClick="toggleSidebar" :is-active="opened" />
     <Breadcrumb />
   </div>
 </template>
@@ -15,11 +14,11 @@ export default defineComponent({
   name: 'Navbar',
   components: { Breadcrumb, Hambuger },
   setup () {
-    const some = computed(() => appStore.someField)
-    const updateSome = appStore.updateSome
+    const opened = computed(() => appStore.sidebar.opened)
+    const toggleSidebar = appStore.toggleSidebar
     return {
-      some,
-      updateSome
+      opened,
+      toggleSidebar
     }
   }
 })

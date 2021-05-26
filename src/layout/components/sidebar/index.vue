@@ -30,6 +30,7 @@ import variables from '@/styles/variables.scss'
 import { ElMenu } from 'element-plus'
 import SidebarItem from '@/layout/components/sidebar/SidebarItem.vue'
 import { routes } from '@/router'
+import { appStore } from '@/store/modules/app'
 
 export default defineComponent({
   name: 'Sidebar',
@@ -50,7 +51,7 @@ export default defineComponent({
     // scss变量
     const scssVariables = computed(() => variables)
     // 是否收起
-    const isCollapse = ref(false)
+    const isCollapse = computed(() => !appStore.sidebar.opened)
     const menuRouters = computed(() => routes)
 
     return {
