@@ -1,7 +1,7 @@
 <template>
   <div>
     <ElDropdown trigger="click" @command="handleSizeCommand">
-      <div>
+      <div class="icon-btn">
         <svg-icon class-name="size-icon" icon-class="size" />
       </div>
       <template #dropdown>
@@ -80,6 +80,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.icon-btn {
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  padding-top: 8px;
+}
 .size-icon {
   font-size: 18px;
 }

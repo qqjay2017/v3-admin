@@ -1,6 +1,7 @@
 import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import store from '@/store'
 import { RouteMeta } from 'vue-router'
+import { hotModuleUnregisterModule } from '@/store/hotModuleUnregisterModule'
 
 export interface RouteLocationWithFullPath {
   name: string|symbol;
