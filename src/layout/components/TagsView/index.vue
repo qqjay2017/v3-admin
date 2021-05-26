@@ -24,8 +24,9 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, watch } from 'vue'
-import { RouteLocationNormalizedLoaded, RouteRecordRaw, useRoute, useRouter } from 'vue-router'
+import { RouteLocationNormalizedLoaded, useRoute, useRouter } from 'vue-router'
 import { tagsViewStore } from '@/store/modules/tagsView'
+import { DashboardName } from '@/utils/constance'
 
 export default defineComponent({
   name: 'TagsView',
@@ -62,13 +63,30 @@ export default defineComponent({
     })
 
     // 是否是当前应该激活的tag
-    const isActive = (tag: RouteRecordRaw) => {
+    const isActive = (tag: RouteLocationNormalizedLoaded) => {
       return tag.path === route.path
+    }
+
+    const toLastView = (visitedViews: RouteLocationNormalizedLoaded[], view: RouteLocationNormalizedLoaded) => {
+      const lastView = visitedViews[visitedViews.length - 1]
+      if (lastView) {
+        router.push(lastView.fullPath)
+      } else {
+        if (view.name === DashboardName) {
+          router.replace({ path: '/redirect' + view.fullPath as string })
+        } else {
+          // tag都没有了 删除的也不是Dashboard 只能跳转首页
+          router.push('/')
+        }
+      }
     }
 
     // 关闭当前右键的tag路由
     const closeSelectedTag = (view: RouteLocationNormalizedLoaded) => {
       tagsViewStore.DEL_VISITED_VIEW(view)
+      if (isActive(view)) {
+        toLastView(visitedTags.value, view)
+      }
     }
 
     return {

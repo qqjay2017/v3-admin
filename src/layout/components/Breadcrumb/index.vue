@@ -19,6 +19,7 @@ import { defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { RouteLocationMatched, RouteLocationRaw, useRoute, useRouter } from 'vue-router'
 import { compile } from 'path-to-regexp'
+import { DashboardName } from '@/utils/constance'
 type PartialRouteLocationMatched = Partial<RouteLocationMatched>
 
 export default defineComponent({
@@ -39,7 +40,7 @@ export default defineComponent({
       if (!name) {
         return false
       }
-      return (name as string).trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
+      return (name as string).trim().toLocaleLowerCase() === DashboardName.toLocaleLowerCase()
     }
 
     // 获取面包屑导航
