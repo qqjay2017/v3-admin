@@ -14,6 +14,7 @@
       >
         {{ tag.meta.title }}
         <span
+          v-if="!isAffix(tag)"
           class="el-icon-close"
           @click.prevent.stop="closeSelectedTag(tag)"
         ></span>
@@ -24,34 +25,65 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, watch } from 'vue'
-import { RouteLocationNormalizedLoaded, useRoute, useRouter } from 'vue-router'
-import { tagsViewStore } from '@/store/modules/tagsView'
+import { RouteLocationNormalizedLoaded, RouteMeta, RouteRecordRaw, useRoute, useRouter } from 'vue-router'
+import { RouteLocationWithFullPath, tagsViewStore } from '@/store/modules/tagsView'
 import { DashboardName } from '@/utils/constance'
-
+import { routes } from '@/router'
+import path from 'path'
 export default defineComponent({
   name: 'TagsView',
   setup () {
     const route = useRoute()
     const router = useRouter()
     const visitedTags = computed(() => tagsViewStore.visitedViews)
+    // 从路由表中过滤出要affixed tagviews
+
+    const filterAffixTags = (routes: Array<RouteLocationWithFullPath | RouteRecordRaw >, basePath = '/') => {
+      let tags: RouteLocationWithFullPath[] = []
+      routes.forEach(route => {
+        if (route.meta && route.meta.affix && route.name) {
+          // 把路由路径解析成完整路径，路由可能是相对路径
+          const tagPath = path.resolve(basePath, route.path)
+          tags.push({
+            name: route.name,
+            path: tagPath,
+            fullPath: tagPath,
+            meta: { ...route.meta }
+          })
+        }
+
+        // 深度优先遍历 子路由（子路由路径可能相对于route.path父路由路径）
+        if (route.children) {
+          const childTags = filterAffixTags(route.children, route.path)
+          if (childTags.length) {
+            tags = [...tags, ...childTags]
+          }
+        }
+      })
+      return tags
+    }
     // 添加tag
     const addTags = () => {
       const { name } = route
 
       if (name) {
         tagsViewStore.ADD_VISITED_VIEW({
-          fullPath: route.fullPath,
-          hash: route.hash,
-          matched: route.matched,
-          meta: route.meta,
-          name: route.name,
-          params: route.params,
+          name: name,
           path: route.path,
-          query: route.query,
-          redirectedFrom: route.redirectedFrom
+          fullPath: route.fullPath,
+          meta: route.meta
         })
       }
     }
+
+    // 初始添加affix的tag
+    const initTags = () => {
+      const affixTags = filterAffixTags(routes)
+      for (const tag of affixTags) {
+        tagsViewStore.ADD_VISITED_VIEW(tag)
+      }
+    }
+
     // 路径发生变化追加tags view
     watch(() => route.path, () => {
       addTags()
@@ -59,15 +91,16 @@ export default defineComponent({
 
     // 最近当前router到tags view
     onMounted(() => {
+      initTags()
       addTags()
     })
 
     // 是否是当前应该激活的tag
-    const isActive = (tag: RouteLocationNormalizedLoaded) => {
+    const isActive = (tag: RouteLocationWithFullPath) => {
       return tag.path === route.path
     }
 
-    const toLastView = (visitedViews: RouteLocationNormalizedLoaded[], view: RouteLocationNormalizedLoaded) => {
+    const toLastView = (visitedViews: RouteLocationWithFullPath[], view: RouteLocationWithFullPath) => {
       const lastView = visitedViews[visitedViews.length - 1]
       if (lastView) {
         router.push(lastView.fullPath)
@@ -82,17 +115,23 @@ export default defineComponent({
     }
 
     // 关闭当前右键的tag路由
-    const closeSelectedTag = (view: RouteLocationNormalizedLoaded) => {
+    const closeSelectedTag = (view: RouteLocationWithFullPath) => {
       tagsViewStore.DEL_VISITED_VIEW(view)
       if (isActive(view)) {
         toLastView(visitedTags.value, view)
       }
     }
 
+    // 是否是始终固定在tagsview上的tag
+    const isAffix = (tag: RouteLocationWithFullPath) => {
+      return tag.meta && tag.meta.affix
+    }
+
     return {
       visitedTags,
       isActive,
-      closeSelectedTag
+      closeSelectedTag,
+      isAffix
     }
   }
 })

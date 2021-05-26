@@ -28,7 +28,8 @@ const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
         meta: {
           title: 'Dashboard',
-          icon: 'el-icon-eleme'
+          icon: 'el-icon-eleme',
+          affix: true
         }
       }
     ]
