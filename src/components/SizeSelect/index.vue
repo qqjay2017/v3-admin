@@ -28,6 +28,7 @@ import {
 import { ElMessage, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
 import { appStore } from '@/store/modules/app'
 import { useRoute, useRouter } from 'vue-router'
+import { tagsViewStore } from '@/store/modules/tagsView'
 
 export default defineComponent({
   name: 'SizeSelect',
@@ -61,6 +62,7 @@ export default defineComponent({
     const { proxy } = getCurrentInstance() as ComponentInternalInstance
     const handleSizeCommand = (command:Size) => {
       (proxy as ComponentPublicInstance).$ELEMENT.size = command
+      tagsViewStore.DEL_ALL_CACHED_VIEWS()
       appStore.setSize(command)
       refreshView()
       ElMessage.success({

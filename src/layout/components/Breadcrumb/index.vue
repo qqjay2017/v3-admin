@@ -102,6 +102,7 @@ export default defineComponent({
   line-height: 50px;
   font-size: 14px;
   margin-left: 8px;
+  overflow: hidden;
 }
 
 .no-redirect {

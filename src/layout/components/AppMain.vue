@@ -2,7 +2,7 @@
     <div class="app-main">
         <router-view v-slot={Component}>
             <transition name="fade-transition" mode="out-in">
-                <keep-alive :include="[]">
+                <keep-alive :include="cachedViews">
                     <component :is="Component" :key="key" />
                 </keep-alive>
             </transition>
@@ -13,6 +13,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
+import { tagsViewStore } from '@/store/modules/tagsView'
 
 export default defineComponent({
   name: 'AppMain',
@@ -21,9 +22,11 @@ export default defineComponent({
     const key = computed(() => {
       return route.path
     })
+    const cachedViews = computed(() => tagsViewStore.cachedViews)
 
     return {
-      key
+      key,
+      cachedViews
     }
   }
 })
