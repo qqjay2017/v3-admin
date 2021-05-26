@@ -6,7 +6,7 @@
     <div class="main-container">
       <div class="header">
        <Navbar />
-        <div class="tags-view">tagsview</div>
+        <TagsView />
       </div>
       <app-main />
     </div>
@@ -17,9 +17,10 @@ import { defineComponent } from 'vue'
 import Sidebar from '@/layout/components/sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 import Navbar from '@/layout/components/Navbar.vue'
+import TagsView from '@/layout/components/TagsView/index.vue'
 export default defineComponent({
   name: 'Layout',
-  components: { Navbar, Sidebar, AppMain },
+  components: { TagsView, Navbar, Sidebar, AppMain },
   setup () {
     return {}
   }

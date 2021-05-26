@@ -86,6 +86,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'menu',
+        name: 'Menu',
         component: () => import(/* webpackChunkName: "menu" */ '@/views/system/menu.vue'),
         meta: {
           title: 'Menu Management',
@@ -94,6 +95,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: 'role',
+        name: 'Role',
         component: () => import(/* webpackChunkName: "role" */ '@/views/system/role.vue'),
         meta: {
           title: 'Role Management',
@@ -102,6 +104,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: 'user',
+        name: 'User',
         component: () => import(/* webpackChunkName: "user" */ '@/views/system/user.vue'),
         meta: {
           title: 'User Management',
