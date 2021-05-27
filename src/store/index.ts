@@ -30,7 +30,7 @@ const persisteSettingsState = createPersistedState({
   key: 'vuex_setting', // 存储名 默认都是vuex 多个模块需要指定 否则会覆盖
   // paths: ['app'] // 针对app这个模块持久化
   // 只针对app模块下sidebar.opened状态持久化
-  paths: ['settings.theme', 'settings.originalStyle'] // 通过点连接符指定state路径
+  paths: ['settings'] // 通过点连接符指定state路径
 })
 const createVuexStore = () => createStore<RootState>({
   modules: {
