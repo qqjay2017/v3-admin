@@ -1,5 +1,6 @@
-import 'element-plus/lib/theme-chalk/index.css'
+// import 'element-plus/lib/theme-chalk/index.css'
 import lang from 'element-plus/lib/locale/lang/zh-cn'
+import 'dayjs/locale/zh-cn'
 import {
   locale,
   ElButton

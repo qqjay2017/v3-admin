@@ -1,5 +1,5 @@
-import { IRootState } from '@/store'
-import { Module, MutationTree, Store } from 'vuex'
+import { RootState } from '@/store'
+import { Module, MutationTree } from 'vuex'
 import { LocationQuery, RouteMeta } from 'vue-router'
 
 export interface RouteLocationWithFullPath {
@@ -64,7 +64,7 @@ const mutations:MutationTree<AppState> = {
 
 }
 
-const tagsViewModule :Module<AppState, IRootState> = {
+const tagsViewModule :Module<AppState, RootState> = {
   namespaced: true,
   state,
   mutations

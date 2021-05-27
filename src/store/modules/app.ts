@@ -1,13 +1,18 @@
-import { IRootState } from '@/store'
+import { RootState } from '@/store'
 import { Size } from '@/plugins/element'
-import { Module, MutationTree, Store } from 'vuex'
+import { Module, MutationTree } from 'vuex'
 
 export enum AppModuleMutations {
   toggleSidebar='toggleSidebar',
   setSize='setSize'
 }
 
-const state = () => ({
+const state:()=>{
+  sidebar:{
+    opened:boolean
+  },
+  size:Size
+} = () => ({
   sidebar: {
     opened: true
   },
@@ -25,7 +30,7 @@ const mutations:MutationTree<AppState> = {
   }
 }
 
-const appModule :Module<AppState, IRootState> = {
+const appModule :Module<AppState, RootState> = {
   namespaced: true,
   state,
   mutations

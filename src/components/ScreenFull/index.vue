@@ -32,7 +32,6 @@ export default defineComponent({
     }
 
     const init = () => {
-      //
       if (screenfull.isEnabled) { // 浏览器是否允许全屏模式
         // 监听全屏切换状态
         screenfull.on('change', change)

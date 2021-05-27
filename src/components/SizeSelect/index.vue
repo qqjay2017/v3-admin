@@ -65,8 +65,8 @@ export default defineComponent({
     const { proxy } = getCurrentInstance() as ComponentInternalInstance
     const handleSizeCommand = (command:Size) => {
       (proxy as ComponentPublicInstance).$ELEMENT.size = command
-      store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.DEL_ALL_CACHED_VIEWS))
       store.commit(getNamespace(Modules.App, AppModuleMutations.setSize), command)
+      store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.DEL_ALL_CACHED_VIEWS))
       refreshView()
       ElMessage.success({
         type: 'success',
@@ -82,12 +82,10 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .icon-btn {
-  width: 26px;
-  height: 26px;
+
   text-align: center;
-  padding-top: 8px;
 }
 .size-icon {
   font-size: 18px;

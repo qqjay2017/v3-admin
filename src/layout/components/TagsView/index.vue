@@ -12,8 +12,12 @@
           :key="index"
           :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
           tag="span"
+          :style="{
+            backgroundColor:isActive(tag) ? themeColor:'',
+            borderColor:isActive(tag) ? themeColor:'',
+          }"
         >
-          {{ tag.meta.title }}11
+          {{ tag.meta.title }}
           <span
             v-if="!isAffix(tag)"
             class="el-icon-close"
@@ -35,6 +39,7 @@ import { routes } from '@/router'
 import path from 'path'
 import ScrollPane from '@/layout/components/TagsView/ScrollPane.vue'
 import { getNamespace, Modules, useStore } from '@/store'
+import useGetThemeColor from '@/hooks/useGetThemeColor'
 
 export default defineComponent({
   name: 'TagsView',
@@ -136,12 +141,14 @@ export default defineComponent({
     const isAffix = (tag: RouteLocationWithFullPath) => {
       return tag.meta && tag.meta.affix
     }
-
+    // 获取主题色
+    const themeColor = useGetThemeColor()
     return {
       visitedTags,
       isActive,
       closeSelectedTag,
-      isAffix
+      isAffix,
+      themeColor
     }
   }
 })
@@ -177,9 +184,9 @@ export default defineComponent({
       }
 
       &.active {
-        background-color: #42b983;
+        background-color: #409EFF;
         color: #fff;
-        border-color: #42b983;
+        border-color: #409EFF;
 
         &::before {
           position: relative;

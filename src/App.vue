@@ -4,8 +4,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import useGenerateTheme from './hooks/useGenerateTheme'
 
 export default defineComponent({
-  name: 'App'
+  name: 'App',
+  setup () {
+    useGenerateTheme()
+  }
 })
 </script>

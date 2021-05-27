@@ -6,7 +6,7 @@
       :default-active="activeMenu"
       :background-color="scssVariables.menuBg"
       :text-color="scssVariables.menuText"
-      :active-text-color="scssVariables.menuActiveText"
+      :active-text-color="themeColor"
       :collapse="isCollapse"
       :collapse-transition="true"
     >
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 // 导入scss变量在组件中使用
 import variables from '@/styles/variables.scss'
@@ -29,6 +29,7 @@ import { ElMenu } from 'element-plus'
 import SidebarItem from '@/layout/components/sidebar/SidebarItem.vue'
 import { routes } from '@/router'
 import { useStore } from '@/store'
+import useGetThemeColor from '@/hooks/useGetThemeColor'
 
 export default defineComponent({
   name: 'Sidebar',
@@ -52,12 +53,13 @@ export default defineComponent({
     // 是否收起
     const isCollapse = computed(() => !store.state.app.sidebar.opened)
     const menuRouters = computed(() => routes)
-
+    const themeColor = useGetThemeColor()
     return {
       isCollapse,
       scssVariables,
       activeMenu,
-      menuRouters
+      menuRouters,
+      themeColor
     }
   }
 })
