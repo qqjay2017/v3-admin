@@ -9,16 +9,13 @@
     "install:husky": "yarn husky install"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2",
     "element-plus": "^1.0.2-beta.44",
     "normalize.css": "^8.0.1",
     "path-to-regexp": "6.2.0",
     "screenfull": "^5.1.0",
-    "shvl": "^2.0.3",
     "vue": "^3.0.11",
     "vue-router": "^4.0.8",
     "vuex": "^4.0.1",
-    "vuex-module-decorators": "^1.0.1",
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {

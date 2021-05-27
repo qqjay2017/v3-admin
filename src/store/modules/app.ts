@@ -1,24 +1,34 @@
-import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators'
-import store from '@/store'
+import { IRootState } from '@/store'
 import { Size } from '@/plugins/element'
-import { hotModuleUnregisterModule } from '@/store/hotModuleUnregisterModule'
+import { Module, MutationTree, Store } from 'vuex'
 
-const NAME = 'app'
-@Module({ dynamic: true, namespaced: true, store, name: NAME })
-export default class MyModule extends VuexModule {
-  sidebar = {
+export enum AppModuleMutations {
+  toggleSidebar='toggleSidebar',
+  setSize='setSize'
+}
+
+const state = () => ({
+  sidebar: {
     opened: true
-  }
+  },
+  size: 'default'
+})
 
-  size:Size = 'small';
-  @Mutation
-  toggleSidebar ():void {
-    this.sidebar.opened = !this.sidebar.opened
-  }
+export type AppState = ReturnType<typeof state>
 
-  @Mutation
-  setSize (size:Size = 'small'):void {
-    this.size = size
+const mutations:MutationTree<AppState> = {
+  [AppModuleMutations.toggleSidebar] (state) {
+    state.sidebar.opened = !state.sidebar.opened
+  },
+  [AppModuleMutations.setSize] (state, size: Size = 'small') {
+    state.size = size
   }
 }
-export const appStore = getModule<MyModule>(MyModule)
+
+const appModule :Module<AppState, IRootState> = {
+  namespaced: true,
+  state,
+  mutations
+}
+
+export default appModule

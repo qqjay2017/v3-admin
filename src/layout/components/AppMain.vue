@@ -13,16 +13,17 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
-import { tagsViewStore } from '@/store/modules/tagsView'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'AppMain',
   setup () {
     const route = useRoute()
+    const store = useStore()
     const key = computed(() => {
       return route.path
     })
-    const cachedViews = computed(() => tagsViewStore.cachedViews)
+    const cachedViews = computed(() => store.state.tagsView.cachedViews)
 
     return {
       key,
