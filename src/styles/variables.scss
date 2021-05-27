@@ -21,6 +21,9 @@ $subMenuHover:#001528;
 
 $sideBarWidth: 210px;
 
+$settingPaneWidth:260px;
+$theme:#409EFF;
+$--font-path: '/fonts/element-icons.woff';
 // The :export directive is the magic sauce for webpack
 // https://mattferderer.com/use-sass-variables-in-typescript-and-javascript
 :export {
@@ -32,4 +35,6 @@ $sideBarWidth: 210px;
   subMenuBg: $subMenuBg;
   subMenuHover: $subMenuHover;
   sideBarWidth: $sideBarWidth;
+  settingPaneWidth:$settingPaneWidth;
+  theme:$theme;
 }

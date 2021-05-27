@@ -26,14 +26,16 @@ import {
   nextTick
 } from 'vue'
 import { ElMessage, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
-import { appStore } from '@/store/modules/app'
+
 import { useRoute, useRouter } from 'vue-router'
-import { tagsViewStore } from '@/store/modules/tagsView'
+import { getNamespace, Modules, useStore } from '@/store'
+import { TagsViewModuleMutations } from '@/store/modules/tagsView'
+import { AppModuleMutations } from '@/store/modules/app'
 
 export default defineComponent({
   name: 'SizeSelect',
   components: {
-    ElDropdown: ElDropdown,
+    ElDropdown,
     ElDropdownMenu,
     ElDropdownItem
 
@@ -41,13 +43,14 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const router = useRouter()
+    const store = useStore()
     const sizeOptions = [
       { label: 'Default', value: 'default' },
       { label: 'Medium', value: 'medium' },
       { label: 'Small', value: 'small' },
       { label: 'Mini', value: 'mini' }
     ]
-    const size = computed(() => appStore.size)
+    const size = computed(() => store.state.app.size)
     // 刷新当前路由
     const refreshView = () => {
       const { fullPath } = route
@@ -62,8 +65,8 @@ export default defineComponent({
     const { proxy } = getCurrentInstance() as ComponentInternalInstance
     const handleSizeCommand = (command:Size) => {
       (proxy as ComponentPublicInstance).$ELEMENT.size = command
-      tagsViewStore.DEL_ALL_CACHED_VIEWS()
-      appStore.setSize(command)
+      store.commit(getNamespace(Modules.App, AppModuleMutations.setSize), command)
+      store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.DEL_ALL_CACHED_VIEWS))
       refreshView()
       ElMessage.success({
         type: 'success',
@@ -79,12 +82,10 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .icon-btn {
-  width: 26px;
-  height: 26px;
+
   text-align: center;
-  padding-top: 8px;
 }
 .size-icon {
   font-size: 18px;

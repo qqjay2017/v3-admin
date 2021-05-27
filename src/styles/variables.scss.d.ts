@@ -7,6 +7,9 @@ export interface ScssVariables {
   subMenuBg: string;
   subMenuHover: string;
   sideBarWidth: string;
+
+  settingPaneWidth: string;
+  theme: string;
 }
 
 export const variables: ScssVariables

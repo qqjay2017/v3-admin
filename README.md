@@ -10,6 +10,7 @@
 - [commitlint](https://commitlint.js.org/#/guides-local-setup?id=install-husky)
 - [element-plus](https://element-plus.gitee.io/#/zh-CN/component/installation)
 - [path-to-regexp](https://www.npmjs.com/package/path-to-regexp)
+- [css-color-function](https://www.npmjs.com/package/css-color-function)
 
 
 ## 项目文档
@@ -31,4 +32,5 @@
 ```sh
 yarn add @commitlint/cli @commitlint/config-conventional -D
 echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js
+
 ```

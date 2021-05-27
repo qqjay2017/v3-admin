@@ -1,6 +1,6 @@
-import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators'
-import store from '@/store'
-import { LocationQuery, RouteMeta, RouteRecordRaw } from 'vue-router'
+import { RootState } from '@/store'
+import { Module, MutationTree } from 'vuex'
+import { LocationQuery, RouteMeta } from 'vue-router'
 
 export interface RouteLocationWithFullPath {
   name: string|symbol;
@@ -11,51 +11,63 @@ export interface RouteLocationWithFullPath {
   children?:RouteLocationWithFullPath[]
 }
 
-const NAME = 'tagsView'
+export interface TagsViewState {
+  visitedViews: RouteLocationWithFullPath[],
+  cachedViews: Array<string|symbol>
+}
 
-@Module({ dynamic: true, namespaced: true, store, name: NAME })
-export default class TagsViewModule extends VuexModule {
-  visitedViews:RouteLocationWithFullPath[] = []
-  cachedViews:Array<string|symbol> = []
+export enum TagsViewModuleMutations {
+  ADD_VISITED_VIEW='ADD_VISITED_VIEW',
+  ADD_CACHE_VIEW='ADD_CACHE_VIEW',
+  DEL_VISITED_VIEW='DEL_VISITED_VIEW',
+  DEL_CACHED_VIEW='DEL_CACHED_VIEW',
+  DEL_ALL_CACHED_VIEWS='DEL_ALL_CACHED_VIEWS',
+}
 
-  @Mutation
-  ADD_VISITED_VIEW (view: RouteLocationWithFullPath) :void{
-    if (this.visitedViews.some(v => v.path === view.path)) {
+const state:()=>TagsViewState = () => ({
+  visitedViews: [],
+  cachedViews: []
+})
+
+export type AppState = ReturnType<typeof state>
+
+const mutations:MutationTree<AppState> = {
+  [TagsViewModuleMutations.ADD_VISITED_VIEW] (state, view: RouteLocationWithFullPath) {
+    if (state.visitedViews.some(v => v.path === view.path)) {
 
     } else {
-      this.visitedViews.push(Object.assign({}, view, {
+      state.visitedViews.push(Object.assign({}, view, {
         title: view.meta?.title || 'tag-name'
       }))
     }
-  }
-
-  @Mutation
-  ADD_CACHE_VIEW (view:RouteLocationWithFullPath):void {
-    if (this.cachedViews.includes(view.name)) {
+  },
+  [TagsViewModuleMutations.ADD_CACHE_VIEW] (state, view: RouteLocationWithFullPath) {
+    if (state.cachedViews.includes(view.name)) {
 
     } else if (!view.meta.noCache) {
-      this.cachedViews.push(view.name)
+      state.cachedViews.push(view.name)
     }
-  }
-
-  @Mutation
-  DEL_VISITED_VIEW (view:RouteLocationWithFullPath):void{
-    const i = this.visitedViews.indexOf(view)
+  },
+  [TagsViewModuleMutations.DEL_VISITED_VIEW] (state, view:RouteLocationWithFullPath) {
+    const i = state.visitedViews.indexOf(view)
     if (i > -1) {
-      this.visitedViews.splice(i, 1)
+      state.visitedViews.splice(i, 1)
     }
+  },
+  [TagsViewModuleMutations.DEL_CACHED_VIEW] (state, view:RouteLocationWithFullPath) {
+    const index = state.cachedViews.indexOf(view.name)
+    index > -1 && state.cachedViews.splice(index, 1)
+  },
+  [TagsViewModuleMutations.DEL_ALL_CACHED_VIEWS] (state) {
+    state.cachedViews = []
   }
 
-  @Mutation
-  DEL_CACHED_VIEW (view:RouteLocationWithFullPath):void {
-    const index = this.cachedViews.indexOf(view.name)
-    index > -1 && this.cachedViews.splice(index, 1)
-  }
-
-  @Mutation
-  DEL_ALL_CACHED_VIEWS () {
-    this.cachedViews = []
-  }
 }
 
-export const tagsViewStore = getModule<TagsViewModule>(TagsViewModule)
+const tagsViewModule :Module<AppState, RootState> = {
+  namespaced: true,
+  state,
+  mutations
+}
+
+export default tagsViewModule

@@ -12,8 +12,12 @@
           :key="index"
           :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
           tag="span"
+          :style="{
+            backgroundColor:isActive(tag) ? themeColor:'',
+            borderColor:isActive(tag) ? themeColor:'',
+          }"
         >
-          {{ tag.meta.title }}11
+          {{ tag.meta.title }}
           <span
             v-if="!isAffix(tag)"
             class="el-icon-close"
@@ -28,12 +32,14 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, watch } from 'vue'
-import { RouteLocationNormalizedLoaded, RouteMeta, RouteRecordRaw, useRoute, useRouter } from 'vue-router'
-import { RouteLocationWithFullPath, tagsViewStore } from '@/store/modules/tagsView'
+import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
+import { RouteLocationWithFullPath, TagsViewModuleMutations } from '@/store/modules/tagsView'
 import { DashboardName } from '@/utils/constance'
 import { routes } from '@/router'
 import path from 'path'
 import ScrollPane from '@/layout/components/TagsView/ScrollPane.vue'
+import { getNamespace, Modules, useStore } from '@/store'
+import useGetThemeColor from '@/hooks/useGetThemeColor'
 
 export default defineComponent({
   name: 'TagsView',
@@ -41,7 +47,8 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const router = useRouter()
-    const visitedTags = computed(() => tagsViewStore.visitedViews)
+    const store = useStore()
+    const visitedTags = computed(() => store.state.tagsView.visitedViews)
     // 从路由表中过滤出要affixed tagviews
 
     const filterAffixTags = (routes: Array<RouteLocationWithFullPath | RouteRecordRaw>, basePath = '/') => {
@@ -73,7 +80,7 @@ export default defineComponent({
       const { name } = route
 
       if (name) {
-        tagsViewStore.ADD_VISITED_VIEW({
+        store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.ADD_VISITED_VIEW), {
           name: name,
           path: route.path,
           fullPath: route.fullPath,
@@ -86,7 +93,7 @@ export default defineComponent({
     const initTags = () => {
       const affixTags = filterAffixTags(routes)
       for (const tag of affixTags) {
-        tagsViewStore.ADD_VISITED_VIEW(tag)
+        store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.ADD_VISITED_VIEW), tag)
       }
     }
 
@@ -122,8 +129,9 @@ export default defineComponent({
 
     // 关闭当前右键的tag路由
     const closeSelectedTag = (view: RouteLocationWithFullPath) => {
-      tagsViewStore.DEL_VISITED_VIEW(view)
-      tagsViewStore.DEL_CACHED_VIEW(view)
+      store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.DEL_VISITED_VIEW), view)
+      store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.DEL_CACHED_VIEW), view)
+
       if (isActive(view)) {
         toLastView(visitedTags.value, view)
       }
@@ -133,12 +141,14 @@ export default defineComponent({
     const isAffix = (tag: RouteLocationWithFullPath) => {
       return tag.meta && tag.meta.affix
     }
-
+    // 获取主题色
+    const themeColor = useGetThemeColor()
     return {
       visitedTags,
       isActive,
       closeSelectedTag,
-      isAffix
+      isAffix,
+      themeColor
     }
   }
 })
@@ -174,9 +184,9 @@ export default defineComponent({
       }
 
       &.active {
-        background-color: #42b983;
+        background-color: #409EFF;
         color: #fff;
-        border-color: #42b983;
+        border-color: #409EFF;
 
         &::before {
           position: relative;
