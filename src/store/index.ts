@@ -9,8 +9,8 @@ export const storeKey: InjectionKey<Store<any>> = Symbol('')
 const myPlugin = createPersistedState({
   storage: window.localStorage,
   key: 'vuex_app',
-  paths: ['app.sidebar.opened'],
-  overwrite: true
+  paths: ['app.sidebar.opened']
+
 })
 
 const store:Store<any> = createStore({

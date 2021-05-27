@@ -1,13 +1,13 @@
 import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import store from '@/store'
-import { RouteMeta } from 'vue-router'
-import { hotModuleUnregisterModule } from '@/store/hotModuleUnregisterModule'
+import { LocationQuery, RouteMeta, RouteRecordRaw } from 'vue-router'
 
 export interface RouteLocationWithFullPath {
   name: string|symbol;
   path: string;
   fullPath: string;
   meta: RouteMeta;
+  query? :LocationQuery,
   children?:RouteLocationWithFullPath[]
 }
 
