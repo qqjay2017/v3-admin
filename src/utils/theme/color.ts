@@ -1,5 +1,9 @@
 import { formula, IObject } from '@/utils/constance'
 import color from 'css-color-function'
+
+// 转换成不同色调的rgb颜色值
+// https://www.w3cplus.com/css/the-power-of-rgba.html
+
 export function generateColors (primary: string):IObject {
   const colors:IObject = {}
   Object.keys(formula).forEach(key => {

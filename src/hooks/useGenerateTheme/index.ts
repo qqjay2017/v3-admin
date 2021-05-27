@@ -18,6 +18,20 @@ export default function useGenerateTheme () {
       primary: defaultTheme.value
     }, generateColors(color))
     // 写入新的css样式
+    /**
+     * colors
+     light-1: "rgb(83, 168, 255)"
+     light-2: "rgb(102, 177, 255)"
+     light-3: "rgb(121, 187, 255)"
+     light-4: "rgb(140, 197, 255)"
+     light-5: "rgb(160, 207, 255)"
+     light-6: "rgb(179, 216, 255)"
+     light-7: "rgb(198, 226, 255)"
+     light-8: "rgb(217, 236, 255)"
+     light-9: "rgb(236, 245, 255)"
+     primary: "#409EFF"
+     shade-1: "rgb(58, 142, 230)"
+     */
     writeNewStyle(originalStyle.value, colors)
   }
 
@@ -28,6 +42,7 @@ export default function useGenerateTheme () {
   if (!originalStyle.value) {
     getThemeChalkStyle().then(
       data => {
+        // data是主题文件的css内容
         data = data.replace('fonts/element-icons.woff', '/fonts/element-icons.woff')
         data = data.replace('fonts/element-icons.ttf', '/fonts/element-icons.ttf')
         const styleValue = getStyleTemplate(data as string)

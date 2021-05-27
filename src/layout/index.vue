@@ -14,8 +14,11 @@
     v-model="showSetting"
     title="样式风格设置"
     :size="SettingsPanelWidth"
+
     >
-      <ThemePicker />
+     <div>
+      <Settings />
+     </div>
     </ElDrawer>
   </div>
 </template>
@@ -26,12 +29,12 @@ import AppMain from './components/AppMain.vue'
 import Navbar from '@/layout/components/Navbar.vue'
 import TagsView from '@/layout/components/TagsView/index.vue'
 import { ElDrawer } from 'element-plus'
-import ThemePicker from '@/components/ThemePicker/index.vue'
 import { useStore } from '@/store'
 import varibalse from '@/styles/variables.scss'
+import Settings from '@/layout/components/Settings/index.vue'
 export default defineComponent({
   name: 'Layout',
-  components: { ThemePicker, TagsView, Navbar, Sidebar, AppMain, ElDrawer },
+  components: { Settings, TagsView, Navbar, Sidebar, AppMain, ElDrawer },
   setup () {
     const store = useStore()
 

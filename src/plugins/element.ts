@@ -12,7 +12,7 @@ export type Size = 'default' | 'medium' | 'small' | 'mini'
 interface ElementOptions {
   size:Size
 }
-export default (app:App, options:ElementOptions) :void => {
+export default (app:App<HTMLElement>, options:ElementOptions) :void => {
   locale(lang)
   // 按需导入组件列表
   const components = [

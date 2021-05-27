@@ -4,9 +4,7 @@
     class="theme-picker"
     :predefine="themeColor"
     popper-class="theme-picker-dropdown"
-  >
-
-  </ElColorPicker>
+  />
 </template>
 
 <script lang="ts">
@@ -33,7 +31,6 @@ export default defineComponent({
     }, {
       immediate: true
     })
-
     watch(theme, value => {
       store.commit(getNamespace(Modules.Settings, SettingsModuleMutations.CHANGE_SETTING), {
         key: 'theme',
@@ -41,7 +38,6 @@ export default defineComponent({
       })
       generateTheme(value)
     })
-
     return {
       themeColor,
       theme

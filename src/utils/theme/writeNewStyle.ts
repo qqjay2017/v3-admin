@@ -8,6 +8,7 @@ export function writeNewStyle (originalStyle:string, colors:IObject) {
     originalStyle = originalStyle.replace(reg, '$1' + colors[key])
   })
   const chalkStyle = document.getElementById('chalk-theme-style')
+  // originalStyle 实现变量替换
   if (!chalkStyle) {
     const style = document.createElement('style')
     style.innerText = originalStyle
