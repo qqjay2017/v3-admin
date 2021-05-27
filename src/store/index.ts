@@ -19,7 +19,7 @@ export const storeKey: InjectionKey<Store<IRootState>> = Symbol('')
 const myPlugin = createPersistedState({
   storage: window.localStorage,
   key: 'vuex_app',
-  paths: ['app.sidebar.opened']
+  paths: ['app']
 
 })
 const createVuexStore = () => createStore<IRootState>({
