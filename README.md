@@ -38,3 +38,18 @@ echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > comm
 ## 部署
 
 > scp -r  .dist/* root@101.32.10.202:/home/html
+
+
+## 云原生部署
+
+```
+步骤一：安装云开发 CloudBase CLI
+CloudBase CLI 集成了 CloudBase Framework) 的能力，全局安装 CloudBase CLI 请运行以下命令：
+
+npm install -g @cloudbase/cli
+#步骤二：一键部署
+在项目根目录运行以下命令部署 Vue CLI 创建的应用，在部署之前可以先 开通环境
+
+cloudbase init --without-template
+cloudbase framework:deploy
+```
