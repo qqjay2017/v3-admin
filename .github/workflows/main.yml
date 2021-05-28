@@ -42,7 +42,7 @@ jobs:
       - name: install cloudbase/cli global
         run: |
           npm install -g @cloudbase/cli;
-       - name: Deploy
+      - name: Deploy
         run: |
           cloudbase framework:deploy;
           with:
