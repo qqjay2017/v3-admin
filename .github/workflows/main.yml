@@ -39,8 +39,16 @@ jobs:
       - name: npm install
         run: |
           yarn install;
-      - name: deploy
+      - name: install cloudbase/cli global
         run: |
           npm install -g @cloudbase/cli;
           cloudbase framework:deploy;
+       - name: install cloudbase/cli global
+        run: |
+          cloudbase framework:deploy;
+          with:
+            secretId: ${{secrets.secretId}}
+            secretKey: ${{secrets.secretKey}}
+            envId: ${{ secrets.ENV_ID }}
+
 
