@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "install:husky": "yarn husky install"
+    "install:husky": "yarn husky install",
+    "docker:build": "docker build . -t vue3-element-admin",
+    "docker:run": "docker run -d -p 7000:7000 vue3-element-admin"
   },
   "dependencies": {
     "axios": "^0.21.1",
