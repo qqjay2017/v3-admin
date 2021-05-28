@@ -34,3 +34,7 @@ yarn add @commitlint/cli @commitlint/config-conventional -D
 echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js
 
 ```
+
+## 部署
+
+> scp -r  .dist/* root@101.32.10.202:/home/html

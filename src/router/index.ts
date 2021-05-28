@@ -118,9 +118,9 @@ const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/guide1',
     component: Layout,
-    redirect: '/guide/index1',
+    redirect: '/guide1/index1',
     meta: {
-      title: 'Guide父级',
+      title: 'Guide父级1',
       icon: 'guide',
       alwaysShow: true
     },
@@ -130,9 +130,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'Guide1',
         component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
         meta: {
-          title: 'Guide',
-          icon: 'guide',
-          activeMenu: '/documentation/index'
+          title: 'Guide1',
+          icon: 'guide'
 
         }
       }
@@ -141,9 +140,9 @@ const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/guide2',
     component: Layout,
-    redirect: '/guide/index2',
+    redirect: '/guide2/index2',
     meta: {
-      title: 'Guide父级',
+      title: 'Guide父级2',
       icon: 'guide',
       alwaysShow: true
     },
@@ -153,7 +152,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'Guide2',
         component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
         meta: {
-          title: 'Guide',
+          title: 'Guide2',
           icon: 'guide',
           activeMenu: '/documentation/index'
 
