@@ -1,6 +1,12 @@
 @import './variables.scss';
 @import './sidebar.scss';
 
+* {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e4e4e7;
+}
 
 html {
   height: 100%;

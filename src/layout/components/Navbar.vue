@@ -48,17 +48,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
   display: flex;
   background: #fff;
-
+  border-bottom: 1px solid rgba(0, 21, 41, .08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
   .right-menu {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-right: 15px;
-
+    .setting {
+      font-size: 26px;
+    }
     &-item {
       padding: 0 8px;
       font-size: 18px;

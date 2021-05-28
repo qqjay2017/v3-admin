@@ -1,8 +1,6 @@
 <template>
   <div class="tags-view-container">
-    <ScrollPane>
-      <div class="tags-view-wrapper">
-
+    <ElScrollbar ref="ElScrollbarRef" class="scroll-container tags-view-wrapper">
         <router-link
           class="tags-view-item"
           :class="{
@@ -11,7 +9,6 @@
           v-for="(tag, index) in visitedTags"
           :key="index"
           :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-          tag="span"
           :style="{
             backgroundColor:isActive(tag) ? themeColor:'',
             borderColor:isActive(tag) ? themeColor:'',
@@ -24,26 +21,25 @@
             @click.prevent.stop="closeSelectedTag(tag)"
           ></span>
         </router-link>
-      </div>
-    </ScrollPane>
+    </ElScrollbar>
   </div>
-
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, watch } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
 import { RouteLocationWithFullPath, TagsViewModuleMutations } from '@/store/modules/tagsView'
 import { DashboardName } from '@/utils/constance'
 import { routes } from '@/router'
 import path from 'path'
-import ScrollPane from '@/layout/components/TagsView/ScrollPane.vue'
+
 import { getNamespace, Modules, useStore } from '@/store'
 import useGetThemeColor from '@/hooks/useGetThemeColor'
+import { ElScrollbar } from 'element-plus'
 
 export default defineComponent({
   name: 'TagsView',
-  components: { ScrollPane },
+  components: { ElScrollbar },
   setup () {
     const route = useRoute()
     const router = useRouter()
@@ -143,12 +139,19 @@ export default defineComponent({
     }
     // 获取主题色
     const themeColor = useGetThemeColor()
+
+    const ElScrollbarRef = ref()
+
+    watch(() => visitedTags.value.length, () => {
+      ElScrollbarRef.value && ElScrollbarRef.value.update && ElScrollbarRef.value.update()
+    })
     return {
       visitedTags,
       isActive,
       closeSelectedTag,
       isAffix,
-      themeColor
+      themeColor,
+      ElScrollbarRef
     }
   }
 })
@@ -156,48 +159,65 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tags-view-container {
   height: 34px;
+  width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
-  overflow: hidden;
-
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
+      position: relative;
+      cursor: pointer;
       height: 26px;
       line-height: 26px;
       border: 1px solid #d8dce5;
-      background: #fff;
       color: #495060;
+      background: #fff;
       padding: 0 8px;
-      box-sizing: border-box;
       font-size: 12px;
       margin-left: 5px;
       margin-top: 4px;
-
       &:first-of-type {
         margin-left: 15px;
       }
-
       &:last-of-type {
         margin-right: 15px;
       }
-
       &.active {
-        background-color: #409EFF;
+        background-color: #42b983;
         color: #fff;
-        border-color: #409EFF;
-
+        border-color: #42b983;
         &::before {
-          position: relative;
-          display: inline-block;
           content: '';
+          background: #fff;
+          display: inline-block;
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          margin-right: 5px;
-          background: #fff;
+          position: relative;
+          margin-right: 2px;
         }
+      }
+    }
+  }
+  .contextmenu {
+    margin: 0;
+    background: #fff;
+    z-index: 3000;
+    position: absolute;
+    list-style-type: none;
+    padding: 5px 0;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+    li {
+      margin: 0;
+      padding: 7px 16px;
+      cursor: pointer;
+      &:hover {
+        background: #eee;
       }
     }
   }
@@ -205,26 +225,43 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
-.tags-view-container {
-  .el-icon-close {
-    width: 16px;
-    height: 16px;
-    vertical-align: 2px;
-    border-radius: 50%;
-    text-align: center;
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    transform-origin: 100% 50%;
-
-    &:before {
-      transform: scale(.6);
-      display: inline-block;
-      vertical-align: -3px;
+.scroll-container {
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  ::v-deep {
+    .el-scrollbar__bar {
+      bottom: 0px;
     }
-
-    &:hover {
-      background-color: #b4bccc;
-      color: #fff;
+    .el-scrollbar__wrap {
+      height: 49px;
     }
   }
+}
+.tags-view-container {
+  .tags-view-item {
+    .el-icon-close {
+      width: 16px;
+      height: 16px;
+      vertical-align: 2px;
+      border-radius: 50%;
+      text-align: center;
+      transition: all .3s cubic-bezier(.645, .045, .355, 1);
+      transform-origin: 100% 50%;
+
+      &:before {
+        transform: scale(.6);
+        display: inline-block;
+        vertical-align: -3px;
+      }
+
+      &:hover {
+        background-color: #b4bccc;
+        color: #fff;
+      }
+    }
+  }
+
 }
 </style>

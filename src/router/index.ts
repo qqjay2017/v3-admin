@@ -115,6 +115,52 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  {
+    path: '/guide1',
+    component: Layout,
+    redirect: '/guide/index1',
+    meta: {
+      title: 'Guide父级',
+      icon: 'guide',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: 'index1',
+        name: 'Guide1',
+        component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
+        meta: {
+          title: 'Guide',
+          icon: 'guide',
+          activeMenu: '/documentation/index'
+
+        }
+      }
+    ]
+  },
+  {
+    path: '/guide2',
+    component: Layout,
+    redirect: '/guide/index2',
+    meta: {
+      title: 'Guide父级',
+      icon: 'guide',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: 'index2',
+        name: 'Guide2',
+        component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
+        meta: {
+          title: 'Guide',
+          icon: 'guide',
+          activeMenu: '/documentation/index'
+
+        }
+      }
+    ]
+  },
   { // 外链路由
     path: '/external-link',
     component: Layout,

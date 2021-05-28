@@ -1,22 +1,28 @@
 <template>
-  <div>
-    <el-menu
-      class="sidebar-container-menu"
-      mode="vertical"
-      :default-active="activeMenu"
-      :background-color="scssVariables.menuBg"
-      :text-color="scssVariables.menuText"
-      :active-text-color="themeColor"
-      :collapse="isCollapse"
-      :collapse-transition="true"
-    >
-      <SidebarItem
-        v-for="i in menuRouters"
-      :key="i.path"
-       :item="i"
-        :base-path="i.path"
-      />
-    </el-menu>
+  <div class="sidebar-wrapper">
+    <Logo v-if="showLogo" :collapse="isCollapse" />
+    <ScrollPane>
+      <el-menu
+        class="sidebar-container-menu"
+        :class="{
+          'sidebar-show-logo': showLogo
+        }"
+        mode="vertical"
+        :default-active="activeMenu"
+        :background-color="scssVariables.menuBg"
+        :text-color="scssVariables.menuText"
+        :active-text-color="themeColor"
+        :collapse="isCollapse"
+        :collapse-transition="true"
+      >
+        <SidebarItem
+          v-for="i in menuRouters"
+          :key="i.path"
+          :item="i"
+          :base-path="i.path"
+        />
+      </el-menu>
+    </ScrollPane>
   </div>
 </template>
 
@@ -25,15 +31,18 @@ import { computed, defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 // 导入scss变量在组件中使用
 import variables from '@/styles/variables.scss'
-import { ElMenu } from 'element-plus'
+import { ElMenu, ElScrollbar } from 'element-plus'
 import SidebarItem from '@/layout/components/sidebar/SidebarItem.vue'
 import { routes } from '@/router'
 import { useStore } from '@/store'
 import useGetThemeColor from '@/hooks/useGetThemeColor'
+import Logo from '@/layout/components/Logo.vue'
 
 export default defineComponent({
   name: 'Sidebar',
   components: {
+    ScrollPane: ElScrollbar,
+    Logo,
     SidebarItem,
     ElMenu
   },
@@ -52,6 +61,7 @@ export default defineComponent({
     const scssVariables = computed(() => variables)
     // 是否收起
     const isCollapse = computed(() => !store.state.app.sidebar.opened)
+    const showLogo = computed(() => store.state.settings.sidebarLogo)
     const menuRouters = computed(() => routes)
     const themeColor = useGetThemeColor()
     return {
@@ -59,10 +69,20 @@ export default defineComponent({
       scssVariables,
       activeMenu,
       menuRouters,
-      themeColor
+      themeColor,
+      showLogo
     }
   }
 })
 </script>
 
-<style lang="postcss" scoped></style>
+<style lang="scss" scoped>
+.sidebar-wrapper {
+  .sidebar-container-menu {
+    height: 100vh;
+    &.sidebar-show-logo {
+      height: calc(100vh - 50px);
+    }
+  }
+}
+</style>

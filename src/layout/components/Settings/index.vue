@@ -2,12 +2,16 @@
   <div class="drawer-container">
     <div class="drawer-item">
       <span>主题色</span>
-      <ThemePicker />
+      <ThemePicker/>
     </div>
 
     <div class="drawer-item">
       <span>Open Tags-View</span>
-      <el-switch v-model="tagsView" class="drawer-switch" />
+      <el-switch v-model="tagsView" class="drawer-switch"/>
+    </div>
+    <div class="drawer-item">
+      <span>Show sidebar-logo</span>
+      <el-switch v-model="showLogo" class="drawer-switch"/>
     </div>
   </div>
 </template>
@@ -18,6 +22,7 @@ import ThemePicker from '@/components/ThemePicker/index.vue'
 import { getNamespace, Modules, useStore } from '@/store'
 import { SettingsModuleMutations } from '@/store/modules/settings'
 import { ElSwitch } from 'element-plus'
+
 export default defineComponent({
   name: 'Settings',
   components: { ThemePicker, ElSwitch },
@@ -34,8 +39,21 @@ export default defineComponent({
         })
       }
     })
+
+    const showLogo = computed({
+      get () {
+        return store.state.settings.sidebarLogo
+      },
+      set (val) {
+        store.commit(getNamespace(Modules.Settings, SettingsModuleMutations.CHANGE_SETTING), {
+          key: 'sidebarLogo',
+          value: val
+        })
+      }
+    })
     return {
-      tagsView
+      tagsView,
+      showLogo
     }
   }
 })
