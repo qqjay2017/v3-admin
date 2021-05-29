@@ -22,7 +22,7 @@ on:
 env:
   secretId: ${{secrets.secretId}}
   secretKey: ${{secrets.secretKey}}
-  envId: ${{ secrets.ENV_ID }}
+  ENV_ID: ${{secrets.ENV_ID}}
 
 jobs:
   setup-build-publish-deploy:
@@ -45,7 +45,3 @@ jobs:
       - name: Deploy
         run: |
           cloudbase framework:deploy;
-        with:
-          secretId: ${{secrets.secretId}}
-          secretKey: ${{secrets.secretKey}}
-          envId: ${{ secrets.ENV_ID }}
