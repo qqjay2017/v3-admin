@@ -1,53 +1,15 @@
-# This workflow will build a docker container, publish and deploy it to Tencent Kubernetes Engine (TKE).
-#
-# To configure this workflow:
-#
-# 1. Ensure that your repository contains the necessary configuration for your Tencent Kubernetes Engine cluster, 
-#    including deployment.yml, kustomization.yml, service.yml, etc.
-#
-# 2. Set up secrets in your workspace: 
-#    - TENCENT_CLOUD_SECRET_ID with Tencent Cloud secret id
-#    - TENCENT_CLOUD_SECRET_KEY with Tencent Cloud secret key 
-#    - TENCENT_CLOUD_ACCOUNT_ID with Tencent Cloud account id
-#    - TKE_REGISTRY_PASSWORD with TKE registry password
-#
-# 3. Change the values for the TKE_IMAGE_URL, TKE_REGION, TKE_CLUSTER_ID and DEPLOYMENT_NAME environment variables (below).
-
-name: v3dmin
-
-on:
-  ['push']
-
-# Environment variables available to all jobs and steps in this workflow
-env:
-  secretId: ${{secrets.secretId}}
-  secretKey: ${{secrets.secretKey}}
-  envId: ${{ secrets.ENV_ID }}
+on: [push]
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  deploy:
     runs-on: ubuntu-latest
-    environment: production
+    name: Tencent Cloudbase Github Action Example
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install Node
-        uses: actions/setup-node@v1.4.4
+      - name: Deploy to Tencent CloudBase
+        uses: ./
         with:
-          node-version: "14.x"
-      - name: npm install
-        run: |
-          yarn install;
-      - name: install cloudbase/cli global
-        run: |
-          npm install -g @cloudbase/cli;
-      - name: Deploy
-        run: |
-          cloudbase framework:deploy;
-          with:
-            secretId: ${{secrets.secretId}}
-            secretKey: ${{secrets.secretKey}}
-            envId: ${{ secrets.ENV_ID }}
-
-
+          secretId: ${{secrets.secretId}}
+          secretKey: ${{secrets.secretKey}}
+          envId: ${{secrets.envId}}

@@ -4,7 +4,7 @@
 
 create project use vue-cli, vue3 typescript element-plus  and vuex@4 vue-router@4
 
-[preview online] [https://hello-cloudbase-2gynpr709b78f915-1258857408.tcloudbaseapp.com/]
+[preview online](https://hello-cloudbase-2gynpr709b78f915-1258857408.tcloudbaseapp.com/)
 
 ## 必备文档
 
