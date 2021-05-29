@@ -45,3 +45,7 @@ jobs:
       - name: Deploy
         run: |
           cloudbase framework:deploy;
+        with:
+          secretId: ${{secrets.secretId}}
+          secretKey: ${{secrets.secretKey}}
+          envId: ${{ secrets.ENV_ID }}
