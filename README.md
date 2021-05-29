@@ -55,7 +55,7 @@ echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > comm
 > scp -r  .dist/* root@101.32.10.202:/home/html
 
 
-####  云原生部署
+####  腾讯云cloudBase
 
 ```
 步骤一：安装云开发 CloudBase CLI
@@ -65,10 +65,13 @@ npm install -g @cloudbase/cli
 
 #步骤二：一键部署
 
-cloudbase init --without-template
+tcb init --without-template
 
-cloudbase framework:deploy
+tcb framework:deploy
 ```
+
+tcb login --apiKeyId {{secrets.secretId}}  --apiKey  {{secrets.secretKey}}
+
 
 #### docker部署
 
