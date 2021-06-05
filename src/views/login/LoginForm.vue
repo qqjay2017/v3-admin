@@ -4,18 +4,18 @@
       :model="model"
       ref="loginFormRef"
       :rules="loginRules">
-      <el-form-item name="username">
+      <el-form-item prop="username">
         <el-input placeholder="请输入登录账户"
                   v-model="model.username"
                   prefix-icon="iconfont icon-wode"></el-input>
       </el-form-item>
-      <el-form-item name="password">
+      <el-form-item prop="password">
         <el-input placeholder="请输入密码"
                   v-model="model.password"
                   show-password
                   prefix-icon="iconfont icon-lock"></el-input>
       </el-form-item>
-      <el-form-item name="password">
+      <el-form-item>
         <el-button type="primary" class="login-button" @click="handleLogin">
           登录
         </el-button>
@@ -27,14 +27,14 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { ElButton, ElForm, ElFormItem, ElInput } from 'element-plus'
+import { ElButton, ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus'
 import { getNamespace, Modules, useStore } from '@/store'
 import { UserModuleAction } from '@/store/modules/user'
 import { LocationQuery, useRoute, useRouter } from 'vue-router'
 
 const loginRules = {
-  username: [{ required: true, trigger: 'blur' }],
-  password: [{ required: true, trigger: 'blur' }]
+  username: [{ required: true, message: '请输入登录账户', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }
 
 export default defineComponent({
@@ -67,6 +67,7 @@ export default defineComponent({
 
     const handleLogin = () => {
       loginFormRef.value.validate((valid:boolean) => {
+        console.log(valid)
         if (valid) {
           store.dispatch(getNamespace(Modules.User, UserModuleAction.login), model)
             .then(res => {
@@ -75,7 +76,7 @@ export default defineComponent({
               router.push({ path: redirect || '/', query: otherQuery })
             })
         } else {
-
+          ElMessage.error('请输入登录账户和密码!')
         }
       })
     }
