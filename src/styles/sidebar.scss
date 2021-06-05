@@ -1,21 +1,42 @@
 #app {
+  .scrollbar-wrapper {
+    overflow-x: hidden !important;
+  }
+  .hideSidebar {
+    .sidebar-container {
+      width: 54px!important;
+    }
+  }
 
   .sidebar-container {
-    height: 100%;
+    transition: width 0.28s;
+    width: $sideBarWidth !important;
     background-color: $menuBg;
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+
     &-menu:not(.el-menu--collapse) {
       width: $sideBarWidth;
     }
+
     // 菜单收起时的样式调整
     .el-menu--collapse {
       .submenu-title {
         display: none;
       }
     }
+
     .el-submenu {
       .el-menu {
         .el-menu-item {
           background-color: $subMenuBg !important;
+
           &:hover {
             background-color: $subMenuHover !important;
           }
@@ -27,5 +48,38 @@
     .el-menu {
       border: none;
     }
+  }
+
+
+  // mobile responsive
+  .mobile {
+    .main-container {
+      margin-left: 0px;
+    }
+
+    .sidebar-container {
+      transition: transform .28s;
+      width: $sideBarWidth !important;
+    }
+
+    &.hideSidebar {
+      .sidebar-container {
+        width: 0px;
+        pointer-events: none;
+        transition-duration: 0.3s;
+        transform: translate3d(-$sideBarWidth, 0, 0);
+      }
+    }
+  }
+
+  .withoutAnimation {
+
+    .main-container,
+    .sidebar-container {
+      transition: none;
+
+
+    }
+
   }
 }
