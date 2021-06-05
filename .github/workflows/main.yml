@@ -16,7 +16,9 @@
 name: v3dmin
 
 on:
-  ['push']
+  push:
+    branches:
+      - main
 
 # Environment variables available to all jobs and steps in this workflow
 env:

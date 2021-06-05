@@ -19,6 +19,7 @@ create project use vue-cli, vue3 typescript element-plus  and vuex@4 vue-router@
 - [element-plus](https://element-plus.gitee.io/#/zh-CN/component/installation)
 - [path-to-regexp](https://www.npmjs.com/package/path-to-regexp)
 - [css-color-function](https://www.npmjs.com/package/css-color-function)
+- [github action](https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
 
 
 ## 项目搭建文档
