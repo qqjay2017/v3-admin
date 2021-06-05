@@ -3,17 +3,19 @@
     <Hambuger @toggleClick="toggleSidebar" :is-active="opened"/>
     <Breadcrumb/>
     <div class="right-menu">
-      <div @click="openShowSetting" class="setting right-menu-item hover-effect">
-        <i class="el-icon-s-tools"></i>
-      </div>
-      <ScreenFull id="screefull" class="right-menu-item hover-effect"/>
-      <ElTooltip content="global size" effect="dark" placement="bottom">
-        <SizeSelect class="right-menu-item hover-effect"/>
-      </ElTooltip>
+      <template v-if="!isMobile">
+        <div @click="openShowSetting" class="setting right-menu-item hover-effect">
+          <i class="el-icon-s-tools"></i>
+        </div>
+        <ScreenFull id="screefull" class="right-menu-item hover-effect"/>
+        <ElTooltip content="global size" effect="dark" placement="bottom">
+          <SizeSelect class="right-menu-item hover-effect"/>
+        </ElTooltip>
+      </template>
       <ElDropdown @command="handleCommand">
-<span class="el-dropdown-link">
-    下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
-  </span>
+        <span class="el-dropdown-link">
+          {{token}}<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">
@@ -77,11 +79,21 @@ export default defineComponent({
           break
       }
     }
+
+    const isMobile = computed(() => {
+      return store.state.app.device === 'mobile'
+    })
+
+    const token = computed(() => {
+      return store.state.user.token
+    })
     return {
       opened,
       toggleSidebar,
       openShowSetting,
-      handleCommand
+      handleCommand,
+      isMobile,
+      token
     }
   }
 })

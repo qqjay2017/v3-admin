@@ -4,7 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 import appModule, { AppState } from '@/store/modules/app'
 import tagsViewModule, { TagsViewState } from '@/store/modules/tagsView'
 import settingsModule, { SettingsState } from '@/store/modules/settings'
-import userModule from '@/store/modules/user'
+import userModule, { UserState } from '@/store/modules/user'
 
 export enum Modules {
   App = 'app',
@@ -17,6 +17,7 @@ export interface RootState {
   app: AppState;
   tagsView: TagsViewState;
   settings: SettingsState;
+  user:UserState
 }
 // 这个key算是个密钥 入口main.ts需要用到 vue.use(store, key) 才能正常使用
 export const storeKey: InjectionKey<Store<RootState>> = Symbol('')
