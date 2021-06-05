@@ -2,6 +2,12 @@
   .scrollbar-wrapper {
     overflow-x: hidden !important;
   }
+  .main-container {
+    min-height: 100%;
+    transition: margin-left .28s;
+    margin-left: $sideBarWidth;
+    position: relative;
+  }
   .hideSidebar {
     .sidebar-container {
       width: 54px!important;
@@ -101,4 +107,5 @@
     }
 
   }
+
 }
