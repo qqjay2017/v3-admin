@@ -69,6 +69,7 @@ npm install -g @cloudbase/cli
 tcb init --without-template
 
 tcb framework:deploy
+
 ```
 
 tcb login --apiKeyId {{secrets.secretId}}  --apiKey  {{secrets.secretKey}}
