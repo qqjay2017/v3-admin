@@ -4,7 +4,7 @@
     <div class="sidebar-container">
       <Sidebar />
     </div>
-    <div class="main-container">
+    <div class="main-container" :class="{hasTagsView:showTagsView}">
       <div class="header fixed-header">
        <Navbar @showSetting="openSettings" />
         <TagsView v-if="showTagsView" />
