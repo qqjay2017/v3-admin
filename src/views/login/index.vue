@@ -43,11 +43,11 @@ const particleOption = {
     events: {
       onClick: {
         enable: true,
-        mode: 'push'
+        mode: 'remove'
       },
       onHover: {
         enable: true,
-        mode: 'repulse'
+        mode: 'grab'
       },
       resize: true
     },
