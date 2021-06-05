@@ -15,7 +15,6 @@
     v-model="showSetting"
     title="样式风格设置"
     :size="SettingsPanelWidth"
-
     >
      <div>
       <Settings />
