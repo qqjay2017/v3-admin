@@ -10,26 +10,43 @@
       <ElTooltip content="global size" effect="dark" placement="bottom">
         <SizeSelect class="right-menu-item hover-effect"/>
       </ElTooltip>
+      <ElDropdown @command="handleCommand">
+<span class="el-dropdown-link">
+    下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+  </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="logout">
+              <span style="display:block;">Log Out</span>
+            </el-dropdown-item>
+
+          </el-dropdown-menu>
+        </template>
+      </ElDropdown>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { ElTooltip } from 'element-plus'
+import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElTooltip } from 'element-plus'
 import Hambuger from './Hambuger/index.vue'
 import Breadcrumb from '@/layout/components/Breadcrumb/index.vue'
 import ScreenFull from '@/components/ScreenFull/index.vue'
 import SizeSelect from '@/components/SizeSelect/index.vue'
 import { getNamespace, Modules, useStore } from '@/store'
 import { AppModuleMutations } from '@/store/modules/app'
+import { UserModuleAction } from '@/store/modules/user'
+import { useRoute } from 'vue-router'
+import qs from 'qs'
 
 export default defineComponent({
   name: 'Navbar',
-  components: { SizeSelect, ScreenFull, Breadcrumb, Hambuger, ElTooltip },
+  components: { SizeSelect, ScreenFull, Breadcrumb, Hambuger, ElTooltip, ElDropdown, ElDropdownMenu, ElDropdownItem },
   emits: ['showSetting'],
   setup (_, { emit }) {
     const store = useStore()
+    const route = useRoute()
     const opened = computed(() => store.state.app.sidebar.opened)
     const toggleSidebar = () => {
       store.commit(getNamespace(Modules.App, AppModuleMutations.toggleSidebar))
@@ -37,10 +54,34 @@ export default defineComponent({
     const openShowSetting = () => {
       emit('showSetting', true)
     }
+
+    const logout = () => {
+      store.dispatch(getNamespace(Modules.User, UserModuleAction.logout)).then(() => {
+        let url = ''
+        url += location.origin
+        url += `#/login?redirect=${route.path}`
+
+        const queryStr = qs.stringify(route.query)
+        if (queryStr) {
+          url = url + '&' + queryStr
+        }
+        window.location.replace(url)
+        window.location.reload()
+      })
+    }
+
+    const handleCommand = (command: string) => {
+      switch (command) {
+        case 'logout':
+          logout()
+          break
+      }
+    }
     return {
       opened,
       toggleSidebar,
-      openShowSetting
+      openShowSetting,
+      handleCommand
     }
   }
 })
@@ -52,15 +93,18 @@ export default defineComponent({
   background: #fff;
   border-bottom: 1px solid rgba(0, 21, 41, .08);
   box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+
   .right-menu {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-right: 15px;
+
     .setting {
       font-size: 26px;
     }
+
     &-item {
       padding: 0 8px;
       font-size: 18px;

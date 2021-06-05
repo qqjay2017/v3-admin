@@ -2,7 +2,7 @@
 // 写入新的css样式
 import { IObject } from '@/utils/constance'
 
-export function writeNewStyle (originalStyle:string, colors:IObject) {
+export function writeNewStyle (originalStyle = '', colors:IObject) {
   Object.keys(colors).forEach(key => {
     const reg = new RegExp('(:|\\s+)' + key, 'g')
     originalStyle = originalStyle.replace(reg, '$1' + colors[key])
