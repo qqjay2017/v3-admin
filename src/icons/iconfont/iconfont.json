@@ -1,0 +1,149 @@
+{
+  "id": "1427633",
+  "name": "后台",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "21912504",
+      "name": "eye-close",
+      "font_class": "eye-close",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "21912522",
+      "name": "lock",
+      "font_class": "lock",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "21912528",
+      "name": "jifen",
+      "font_class": "jifen",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "21912531",
+      "name": "quanxian",
+      "font_class": "quanxian",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "21912537",
+      "name": "qq",
+      "font_class": "qq",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "21912559",
+      "name": "user",
+      "font_class": "user1",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "21912562",
+      "name": "wode",
+      "font_class": "wode",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "21912566",
+      "name": "time",
+      "font_class": "time",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "21912569",
+      "name": "xiaoxi",
+      "font_class": "xiaoxi",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "21912570",
+      "name": "weibo",
+      "font_class": "weibo",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "21912571",
+      "name": "weixin",
+      "font_class": "weixin",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "50334",
+      "name": "menu",
+      "font_class": "chat",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "521966",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "728364",
+      "name": "menu",
+      "font_class": "menu",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "1177612",
+      "name": "用户",
+      "font_class": "iconfontwodecopy",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "1630588",
+      "name": "用户",
+      "font_class": "user",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "4765204",
+      "name": "角色",
+      "font_class": "jiaose",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "4891143",
+      "name": "角色",
+      "font_class": "jiaose1",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "6450048",
+      "name": "角色",
+      "font_class": "jiaose2",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "9788987",
+      "name": "role",
+      "font_class": "role",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    }
+  ]
+}

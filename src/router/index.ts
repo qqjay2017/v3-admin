@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
+import Login from '@/views/login/index.vue'
 import { DashboardName } from '@/utils/constance'
 
 const constantRoutes: Array<RouteRecordRaw> = [
@@ -16,6 +17,11 @@ const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/redirect/index.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: Login,
+    name: 'Login'
   },
   {
     path: '/',

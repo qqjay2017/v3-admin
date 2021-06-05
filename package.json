@@ -16,6 +16,7 @@
     "dayjs": "^1.10.5",
     "element-plus": "^1.0.2-beta.44",
     "normalize.css": "^8.0.1",
+    "particles.vue3": "^1.10.0",
     "path-to-regexp": "6.2.0",
     "screenfull": "^5.1.0",
     "vue": "^3.0.11",
