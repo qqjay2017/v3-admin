@@ -22,6 +22,7 @@ export enum TagsViewModuleMutations {
   DEL_VISITED_VIEW='DEL_VISITED_VIEW',
   DEL_CACHED_VIEW='DEL_CACHED_VIEW',
   DEL_ALL_CACHED_VIEWS='DEL_ALL_CACHED_VIEWS',
+  DEL_ALL_VISITED_VIEWS='DEL_ALL_VISITED_VIEWS',
 }
 
 const state:()=>TagsViewState = () => ({
@@ -60,6 +61,9 @@ const mutations:MutationTree<AppState> = {
   },
   [TagsViewModuleMutations.DEL_ALL_CACHED_VIEWS] (state) {
     state.cachedViews = []
+  },
+  [TagsViewModuleMutations.DEL_ALL_VISITED_VIEWS] (state) {
+    state.visitedViews = []
   }
 
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <ElButton >
+    <ElButton @click="goPage">
       这是一个按钮
     </ElButton>
   </div>
@@ -10,13 +10,25 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { ElButton } from 'element-plus'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Document',
   components: {
     ElButton
   },
   setup () {
-    return {}
+    const router = useRouter()
+    const goPage = () => {
+      router.push({
+        path: '/guide/index',
+        query: {
+          a: 1
+        }
+      })
+    }
+    return {
+      goPage
+    }
   }
 })
 </script>

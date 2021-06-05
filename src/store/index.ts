@@ -4,11 +4,13 @@ import createPersistedState from 'vuex-persistedstate'
 import appModule, { AppState } from '@/store/modules/app'
 import tagsViewModule, { TagsViewState } from '@/store/modules/tagsView'
 import settingsModule, { SettingsState } from '@/store/modules/settings'
+import userModule from '@/store/modules/user'
 
 export enum Modules {
   App = 'app',
   TagsView = 'tagsView',
   Settings = 'settings',
+  User = 'user'
 }
 
 export interface RootState {
@@ -36,7 +38,8 @@ const createVuexStore = () => createStore<RootState>({
   modules: {
     [Modules.App]: appModule,
     [Modules.TagsView]: tagsViewModule,
-    [Modules.Settings]: settingsModule
+    [Modules.Settings]: settingsModule,
+    [Modules.User]: userModule
   },
   plugins: [
     myPlugin,

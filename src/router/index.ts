@@ -167,15 +167,15 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     ]
   },
   { // 外链路由
-    path: '/external-link',
+    path: '/github',
     component: Layout,
     children: [
       {
-        path: 'https://www.baidu.com/',
+        path: 'https://github.com/qqjay2017/v3-admin/',
         redirect: '/',
         meta: {
           title: 'External Link',
-          icon: 'link'
+          icon: 'github'
         }
       }
     ]
@@ -187,9 +187,11 @@ export const routes = [
   ...asyncRoutes
 ]
 
-const router = createRouter({
+const create = () => createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
+
+const router = create()
 
 export default router

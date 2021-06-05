@@ -6,10 +6,11 @@ const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 router.beforeEach((to, from, next) => {
   const hasToken = getToken()
   if (hasToken) {
-    if (to.path === '.login') {
+    if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      next({ ...to, replace: true })
+      console.log(to)
+      next()
     }
   } else {
     // 没有token
