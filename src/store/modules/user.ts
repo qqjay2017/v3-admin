@@ -21,6 +21,7 @@ const state: () => {
   token: string | null,
   type: string | null,
   userInfo: {
+    userType:string,
     id: number,
     name: string,
     // eslint-disable-next-line camelcase
@@ -33,7 +34,8 @@ const state: () => {
   userInfo: {
     id: -1,
     name: '',
-    avatar_url: ''
+    avatar_url: '',
+    userType: ''
   }
 })
 
@@ -85,6 +87,7 @@ const actions: ActionTree<UserState, RootState> = {
         const { id, name, avatar_url } = res.data
 
         commit(UserModuleMutations.SET_USER_INFO, {
+          userType: 'gitee',
           id: id,
           name: name,
           avatar_url: avatar_url
