@@ -24,6 +24,11 @@ const constantRoutes: Array<RouteRecordRaw> = [
     name: 'Login'
   },
   {
+    path: '/login-gitee',
+    component: () => import('@/views/login/LoginGitee.vue'),
+    name: 'LoginGitee'
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/dashboard',

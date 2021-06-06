@@ -12,10 +12,12 @@
           <SizeSelect class="right-menu-item hover-effect"/>
         </ElTooltip>
       </template>
-      <ElDropdown @command="handleCommand">
-        <span class="el-dropdown-link">
-          {{token}}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
+      <ElDropdown trigger="click" @command="handleCommand">
+        <div class="avatar-wrapper">
+          <img v-if="userInfo.avatar_url" :src="userInfo.avatar_url" class="user-avatar">
+          <span class="user-name">{{userInfo.name}}</span>
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </div>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">
@@ -84,16 +86,17 @@ export default defineComponent({
       return store.state.app.device === 'mobile'
     })
 
-    const token = computed(() => {
-      return store.state.user.token
+    const userInfo = computed(() => {
+      return store.state.user.userInfo
     })
+
     return {
       opened,
       toggleSidebar,
       openShowSetting,
       handleCommand,
       isMobile,
-      token
+      userInfo
     }
   }
 })
@@ -132,6 +135,22 @@ export default defineComponent({
         }
       }
     }
+    .avatar-wrapper {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+      position: relative;
+      .user-name {
+        padding:0 6px
+      }
+      .user-avatar {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+      }
+    }
+
   }
 }
 </style>
