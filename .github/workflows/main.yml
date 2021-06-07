@@ -2,12 +2,12 @@
 #
 # To configure this workflow:
 #
-# 1. Ensure that your repository contains the necessary configuration for your Tencent Kubernetes Engine cluster, 
+# 1. Ensure that your repository contains the necessary configuration for your Tencent Kubernetes Engine cluster,
 #    including deployment.yml, kustomization.yml, service.yml, etc.
 #
-# 2. Set up secrets in your workspace: 
+# 2. Set up secrets in your workspace:
 #    - TENCENT_CLOUD_SECRET_ID with Tencent Cloud secret id
-#    - TENCENT_CLOUD_SECRET_KEY with Tencent Cloud secret key 
+#    - TENCENT_CLOUD_SECRET_KEY with Tencent Cloud secret key
 #    - TENCENT_CLOUD_ACCOUNT_ID with Tencent Cloud account id
 #    - TKE_REGISTRY_PASSWORD with TKE registry password
 #
@@ -16,17 +16,19 @@
 name: v3dmin
 
 on:
-  ['push']
+  push:
+    branches:
+      - main
 
 # Environment variables available to all jobs and steps in this workflow
 env:
   secretId: ${{secrets.secretId}}
   secretKey: ${{secrets.secretKey}}
-  envId: ${{ secrets.ENV_ID }}
+  ENV_ID: ${{secrets.ENV_ID}}
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: Setup, Login and Deploy
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -36,18 +38,12 @@ jobs:
         uses: actions/setup-node@v1.4.4
         with:
           node-version: "14.x"
-      - name: npm install
-        run: |
-          yarn install;
       - name: install cloudbase/cli global
         run: |
           npm install -g @cloudbase/cli;
+      - name: tcb login
+        run: |
+          tcb login --apiKeyId ${{secrets.secretId}}  --apiKey  ${{secrets.secretKey}}
       - name: Deploy
         run: |
           cloudbase framework:deploy;
-          with:
-            secretId: ${{secrets.secretId}}
-            secretKey: ${{secrets.secretKey}}
-            envId: ${{ secrets.ENV_ID }}
-
-

@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
+import Login from '@/views/login/index.vue'
 import { DashboardName } from '@/utils/constance'
 
 const constantRoutes: Array<RouteRecordRaw> = [
@@ -16,6 +17,16 @@ const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/redirect/index.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: Login,
+    name: 'Login'
+  },
+  {
+    path: '/login-gitee',
+    component: () => import('@/views/login/LoginGitee.vue'),
+    name: 'LoginGitee'
   },
   {
     path: '/',
@@ -161,15 +172,15 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     ]
   },
   { // 外链路由
-    path: '/external-link',
+    path: '/github',
     component: Layout,
     children: [
       {
-        path: 'https://www.baidu.com/',
+        path: 'https://github.com/qqjay2017/v3-admin/',
         redirect: '/',
         meta: {
           title: 'External Link',
-          icon: 'link'
+          icon: 'github'
         }
       }
     ]
@@ -181,9 +192,11 @@ export const routes = [
   ...asyncRoutes
 ]
 
-const router = createRouter({
+const create = () => createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
+
+const router = create()
 
 export default router

@@ -4,7 +4,7 @@
 
 create project use vue-cli, vue3 typescript element-plus  and vuex@4 vue-router@4
 
-[preview online] [https://hello-cloudbase-2gynpr709b78f915-1258857408.tcloudbaseapp.com/]
+[preview online](https://hello-cloudbase-2gynpr709b78f915-1258857408.tcloudbaseapp.com/)
 
 ## 必备文档
 
@@ -19,6 +19,7 @@ create project use vue-cli, vue3 typescript element-plus  and vuex@4 vue-router@
 - [element-plus](https://element-plus.gitee.io/#/zh-CN/component/installation)
 - [path-to-regexp](https://www.npmjs.com/package/path-to-regexp)
 - [css-color-function](https://www.npmjs.com/package/css-color-function)
+- [github action](https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
 
 
 ## 项目搭建文档
@@ -57,7 +58,7 @@ echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > comm
 > scp -r  .dist/* root@101.32.10.202:/home/html
 
 
-####  云原生部署
+####  腾讯云cloudBase
 
 ```
 步骤一：安装云开发 CloudBase CLI
@@ -67,10 +68,14 @@ npm install -g @cloudbase/cli
 
 #步骤二：一键部署
 
-cloudbase init --without-template
+tcb init --without-template
 
-cloudbase framework:deploy
+tcb framework:deploy
+
 ```
+
+tcb login --apiKeyId {{secrets.secretId}}  --apiKey  {{secrets.secretKey}}
+
 
 #### docker部署
 

@@ -1,16 +1,19 @@
-import { getNamespace, Modules, useStore } from '@/store'
-import { computed } from 'vue'
+import { getNamespace, Modules, RootState, useStore } from '@/store'
+import { App, computed } from 'vue'
 import { generateColors } from '@/utils/theme/color'
 import { writeNewStyle } from '@/utils/theme/writeNewStyle'
 import { useThemeFiles } from '@/hooks/useThemeFiles'
 import { getStyleTemplate } from '@/utils/theme/getStyleTemplate'
 import { SettingsModuleMutations } from '@/store/modules/settings'
+import { Store } from 'vuex'
 
-export default function useGenerateTheme () {
-  const store = useStore()
-  const defaultTheme = computed(() => store.state.settings.theme)
+export default function useGenerateTheme (store?: Store<RootState>) {
+  if (!store) {
+    store = useStore()
+  }
+  const defaultTheme = computed(() => store?.state.settings.theme || '')
   // 获取element-ui 主题文件内容 通过axios获取的 作为变量替换模板
-  const originalStyle = computed(() => store.state.settings.originalStyle)
+  const originalStyle = computed(() => store?.state.settings.originalStyle || '')
   // 生成主题
   // 了解element ui 设计 https://juejin.cn/post/6844903960218697741
   const generateTheme = (color: string) => {
@@ -46,7 +49,7 @@ export default function useGenerateTheme () {
         data = data.replace('fonts/element-icons.woff', '/fonts/element-icons.woff')
         data = data.replace('fonts/element-icons.ttf', '/fonts/element-icons.ttf')
         const styleValue = getStyleTemplate(data as string)
-        store.commit(getNamespace(Modules.Settings, SettingsModuleMutations.CHANGE_SETTING), {
+        store && store.commit(getNamespace(Modules.Settings, SettingsModuleMutations.CHANGE_SETTING), {
           key: 'originalStyle',
           value: styleValue
         })

@@ -17,3 +17,5 @@ export const formula: IObject = {
   'light-8': 'color(primary tint(80%))',
   'light-9': 'color(primary tint(90%))'
 }
+
+export const giteeRedirectUri = location.origin + '/#/login-gitee'
