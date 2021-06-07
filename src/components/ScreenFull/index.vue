@@ -1,6 +1,7 @@
 <template>
   <div class="fullscreen-wrap">
     <svg-icon
+      class-name="fullscreen-icon"
       :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
       @click="handleClick"
     />
@@ -54,4 +55,13 @@ export default defineComponent({
 .fullscreen-wrap {
   cursor: pointer;
 }
+</style>
+
+<style lang="scss">
+.fullscreen-wrap {
+  .fullscreen-icon {
+   font-size: 14px;
+  }
+}
+
 </style>

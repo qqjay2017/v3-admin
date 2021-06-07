@@ -21,6 +21,9 @@ import './icons/iconfont/iconfont.css'
 import Particles from 'particles.vue3'
 import useGenerateTheme from '@/hooks/useGenerateTheme'
 
+// i18n
+import installI18n from './plugins/i18n'
+
 async function bootstrap () {
   const app = createApp(App)
 
@@ -30,6 +33,7 @@ async function bootstrap () {
     .use(installElementPlus, {
       size: store.state.app.size
     })
+    .use(installI18n)
     .use(initSvgIcon)
     .use(Particles)
 

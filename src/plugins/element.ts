@@ -6,6 +6,8 @@ import {
   ElButton
 } from 'element-plus'
 import { App } from 'vue'
+
+import i18n from '@/locales'
 // $ELEMENT size属性类型
 export type Size = 'default' | 'medium' | 'small' | 'mini'
 
@@ -24,6 +26,7 @@ export default (app:App<HTMLElement>, options:ElementOptions) :void => {
   })
 
   app.config.globalProperties.$ELEMENT = {
-    size: options.size || 'small'
+    size: options.size || 'small',
+    i18n: i18n.global.t
   }
 }
