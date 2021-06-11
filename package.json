@@ -20,7 +20,7 @@
     "path-to-regexp": "6.2.0",
     "qs": "^6.10.1",
     "screenfull": "^5.1.0",
-    "vue": "^3.0.11",
+    "vue": "3.0.11",
     "vue-router": "^4.0.8",
     "vuex": "^4.0.1",
     "vuex-persistedstate": "^4.0.0-beta.3"

@@ -18,7 +18,6 @@ import qs from 'qs'
 import { giteeRedirectUri } from '@/utils/constance'
 import { getNamespace, Modules, useStore } from '@/store'
 import { UserModuleAction } from '@/store/modules/user'
-import { useRouter } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import DianMo from '@/views/login/DianMo.vue'
 
@@ -30,7 +29,6 @@ export default defineComponent({
     const errResponse = ref('')
 
     const store = useStore()
-    const router = useRouter()
     const dianmoRef = ref()
     const comTip = computed(() => {
       if (status.value === false) {
@@ -54,7 +52,7 @@ export default defineComponent({
 
     const matchGithubCode = () => {
       //
-      const { href, hash, search } = location
+      const { search } = location
       if (search && search.length) {
         const parseSearch = qs.parse(search)
         if (parseSearch && parseSearch['?code']) {
@@ -82,8 +80,9 @@ export default defineComponent({
           data
         }
       ).then(res => {
+        // refresh_token, expires_in, created_at
         // eslint-disable-next-line camelcase
-        const { access_token, refresh_token, expires_in, created_at } = res.data
+        const { access_token } = res.data
         store.dispatch(getNamespace(Modules.User, UserModuleAction.otherLogin), {
           token: access_token,
           type: 'gitee'
@@ -131,7 +130,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 
   .login-gitee-icon {
     width: 350px;

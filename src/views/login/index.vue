@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import LoginForm from '@/views/login/LoginForm.vue'
 import qs from 'qs'
 import LoginParticles from '@/views/login/LoginParticles.vue'
@@ -28,16 +28,6 @@ export default defineComponent({
     LoginForm
   },
   setup () {
-    const comLoginStyle = computed(() => {
-      const min = 1
-      const max = 7
-      const randomNum = Math.floor(Math.random() * (max - min)) + min
-      return {
-        backgroundImage: `url(${require('../../assets/images/login-bg' +
-          randomNum + '.jpeg')})`
-      }
-    })
-
     const loginByGitee = () => {
       const oauthParameters = {
         scope: 'user_info',
