@@ -60,7 +60,7 @@ export default defineComponent({
 <style lang="scss">
 .fullscreen-wrap {
   .fullscreen-icon {
-   font-size: 14px;
+   font-size: 12px;
   }
 }
 

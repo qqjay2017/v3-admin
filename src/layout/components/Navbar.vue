@@ -4,8 +4,8 @@
     <Breadcrumb/>
     <div class="right-menu">
       <template v-if="!isMobile">
-        <div @click="openShowSetting" class="setting right-menu-item hover-effect">
-          <i class="el-icon-s-tools"></i>
+        <div @click="openShowSetting" class="right-menu-item hover-effect">
+          <SvgIcon class-name="setting-icon" icon-class="setting" />
         </div>
         <ScreenFull id="screefull" class="right-menu-item hover-effect"/>
         <ElTooltip content="global size" effect="dark" placement="bottom">
@@ -48,10 +48,11 @@ import { UserModuleAction } from '@/store/modules/user'
 import { useRoute } from 'vue-router'
 import qs from 'qs'
 import LangSelect from '@/components/LangSelect/index.vue'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 
 export default defineComponent({
   name: 'Navbar',
-  components: { LangSelect, SizeSelect, ScreenFull, Breadcrumb, Hambuger, ElTooltip, ElDropdown, ElDropdownMenu, ElDropdownItem },
+  components: { SvgIcon, LangSelect, SizeSelect, ScreenFull, Breadcrumb, Hambuger, ElTooltip, ElDropdown, ElDropdownMenu, ElDropdownItem },
   emits: ['showSetting'],
   setup (_, { emit }) {
     const store = useStore()
@@ -107,6 +108,14 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss">
+.setting-icon {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+</style>
+
 <style lang="scss" scoped>
 .navbar {
   display: flex;
@@ -120,10 +129,6 @@ export default defineComponent({
     align-items: center;
     justify-content: flex-end;
     padding-right: 15px;
-
-    .setting {
-      font-size: 26px;
-    }
 
     &-item {
       padding: 0 8px;

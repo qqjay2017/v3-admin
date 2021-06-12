@@ -57,9 +57,11 @@ const actions: ActionTree<UserState, RootState> = {
   [UserModuleAction.login] ({ commit }, userInfo) {
     // 输入框里面的内容
     const { username, password } = userInfo
+
     return new Promise((resolve) => {
       const token = username + password
       commit(UserModuleMutations.SET_TOKEN, token)
+      commit(UserModuleMutations.SET_AUTH_TYPE, '---')
       setToken(token)
       resolve(token)
     })

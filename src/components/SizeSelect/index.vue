@@ -88,7 +88,7 @@ export default defineComponent({
   text-align: center;
 }
 .size-icon {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 </style>
