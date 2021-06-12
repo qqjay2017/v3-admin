@@ -29,7 +29,6 @@
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
 import { RouteLocationWithFullPath, TagsViewModuleMutations } from '@/store/modules/tagsView'
-import { DashboardName } from '@/utils/constance'
 import { routes } from '@/router'
 import path from 'path'
 
@@ -114,7 +113,7 @@ export default defineComponent({
       if (lastView) {
         router.push(lastView.fullPath)
       } else {
-        if (view.name === DashboardName) {
+        if (view.name === 'Dashboard') {
           router.replace({ path: '/redirect' + view.fullPath as string })
         } else {
           // tag都没有了 删除的也不是Dashboard 只能跳转首页

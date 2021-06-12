@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
 import Login from '@/views/login/index.vue'
-import { DashboardName } from '@/utils/constance'
 
 const constantRoutes: Array<RouteRecordRaw> = [
   {
@@ -35,7 +34,7 @@ const constantRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'dashboard',
-        name: DashboardName,
+        name: 'Dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
         meta: {
           title: 'route.dashboard.index',
