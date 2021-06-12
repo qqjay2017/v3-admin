@@ -2,9 +2,19 @@
 
 ## Feature
 
-create project use vue-cli, vue3 typescript element-plus  and vuex@4 vue-router@4
+create project use / vue-cli@4 / vue@3 / typescript@4 /  element-plus@1 /  vue-i18n@9  and vuex@4 vue-router@4  
 
 [preview online](https://hello-cloudbase-2gynpr709b78f915-1258857408.tcloudbaseapp.com/)
+
+## 已实现
+
+1. 全局i18n覆盖
+
+
+
+## TODO
+
+1. 动态css加载问题
 
 ## 必备文档
 
