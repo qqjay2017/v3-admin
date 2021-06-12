@@ -14,7 +14,7 @@
             borderColor:isActive(tag) ? themeColor:'',
           }"
         >
-          {{ tag.meta.title }}
+          {{ titleTranform(tag.meta.title) }}
           <span
             v-if="!isAffix(tag)"
             class="el-icon-close"
@@ -35,11 +35,13 @@ import path from 'path'
 import { getNamespace, Modules, useStore } from '@/store'
 import useGetThemeColor from '@/hooks/useGetThemeColor'
 import { ElScrollbar } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'TagsView',
   components: { ElScrollbar },
   setup () {
+    const { t } = useI18n()
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
@@ -144,13 +146,19 @@ export default defineComponent({
     watch(() => visitedTags.value.length, () => {
       ElScrollbarRef.value && ElScrollbarRef.value.update && ElScrollbarRef.value.update()
     })
+
+    const titleTranform = (title:string) => {
+      return title.indexOf('.') > 0 ? t(title) : title
+    }
+
     return {
       visitedTags,
       isActive,
       closeSelectedTag,
       isAffix,
       themeColor,
-      ElScrollbarRef
+      ElScrollbarRef,
+      titleTranform
     }
   }
 })
