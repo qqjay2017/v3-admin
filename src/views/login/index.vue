@@ -1,7 +1,10 @@
 <template>
   <div class="login">
+    <div class="login-tool-wrap">
+      <LangSelect />
+    </div>
     <div class="login-card">
-      <h3 class="login-title">管理后台账户登录</h3>
+      <h3 class="login-title">{{t('component.login.plzLogin')}}</h3>
       <LoginForm/>
       <div class="more-login">
         <div class="type" @click="loginByGitee">
@@ -20,14 +23,18 @@ import LoginForm from '@/views/login/LoginForm.vue'
 import qs from 'qs'
 import LoginParticles from '@/views/login/LoginParticles.vue'
 import { giteeRedirectUri } from '@/utils/constance'
+import LangSelect from '@/components/LangSelect/index.vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'Login',
   components: {
+    LangSelect,
     LoginParticles,
     LoginForm
   },
   setup () {
+    const { t } = useI18n()
     const loginByGitee = () => {
       const oauthParameters = {
         scope: 'user_info',
@@ -39,7 +46,7 @@ export default defineComponent({
       window.location.replace(reloadUrl)
     }
     return {
-
+      t,
       loginByGitee
     }
   }
@@ -73,6 +80,12 @@ export default defineComponent({
     align-items: center;
     padding: 16px;
     border-radius: 4px;
+  }
+  &-tool-wrap {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 20;
   }
 
   .more-login {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="lang-select">
     <ElDropdown trigger="click" @command="handleLanguageCommand">
       <div class="icon-btn">
         <svg-icon class-name="size-icon" icon-class="language" />
@@ -22,7 +22,8 @@ import {
   computed,
   defineComponent,
   getCurrentInstance,
-  nextTick
+  nextTick,
+  inject
 } from 'vue'
 import { ElMessage, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
 
@@ -54,15 +55,7 @@ export default defineComponent({
     ]
 
     // 刷新当前路由
-    const refreshView = () => {
-      const { fullPath } = route
-      nextTick(() => {
-        // 重定向到中间页 实现vue中当前路由刷新
-        router.replace({
-          path: '/redirect' + fullPath
-        })
-      })
-    }
+    const refreshView:any = inject('refreshView')
 
     const { proxy } = getCurrentInstance() as ComponentInternalInstance
     const handleLanguageCommand = (command:string) => {
@@ -85,12 +78,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.icon-btn {
-
-  text-align: center;
-}
-.size-icon {
-  font-size: 14px;
+.lang-select {
+  padding: 2px;
+  border-radius: 4px;
+  .icon-btn {
+    text-align: center;
+  }
+  .size-icon {
+    font-size: 14px;
+  }
+  &:hover {
+    background-color: #fff;
+    .size-icon {
+      color: #000;
+    }
+  }
 }
 
 </style>

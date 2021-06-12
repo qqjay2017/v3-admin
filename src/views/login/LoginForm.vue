@@ -5,19 +5,19 @@
       ref="loginFormRef"
       :rules="loginRules">
       <el-form-item prop="username">
-        <el-input placeholder="请输入登录账户"
+        <el-input :placeholder="t('component.login.accountMsg')"
                   v-model="model.username"
                   prefix-icon="iconfont icon-wode"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input placeholder="请输入密码"
+        <el-input :placeholder="t('component.login.passwordMsg')"
                   v-model="model.password"
                   show-password
                   prefix-icon="iconfont icon-lock"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" class="login-button" @click="handleLogin">
-          登录
+          {{t('component.login.login')}}
         </el-button>
       </el-form-item>
     </el-form>
@@ -31,11 +31,7 @@ import { ElButton, ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus'
 import { getNamespace, Modules, useStore } from '@/store'
 import { UserModuleAction } from '@/store/modules/user'
 import { LocationQuery, useRoute, useRouter } from 'vue-router'
-
-const loginRules = {
-  username: [{ required: true, message: '请输入登录账户', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
-}
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'LoginForm',
@@ -46,7 +42,15 @@ export default defineComponent({
     ElButton
   },
   setup () {
+    const { t } = useI18n()
+
     const loginFormRef = ref()
+
+    const loginRules = {
+      username: [{ required: true, message: t('component.login.accountMsg'), trigger: 'blur' }],
+      password: [{ required: true, message: t('component.login.passwordMsg'), trigger: 'blur' }]
+    }
+
     const model = reactive({
       username: '',
       password: ''
@@ -76,7 +80,7 @@ export default defineComponent({
               router.push({ path: redirect || '/', query: otherQuery })
             })
         } else {
-          ElMessage.error('请输入登录账户和密码!')
+          ElMessage.error(t('component.login.loginErrMsg'))
         }
       })
     }
@@ -84,7 +88,8 @@ export default defineComponent({
       model,
       handleLogin,
       loginRules,
-      loginFormRef
+      loginFormRef,
+      t
     }
   }
 })
