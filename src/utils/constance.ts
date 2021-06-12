@@ -1,4 +1,5 @@
-export const DashboardName = 'Dashboard'
+import i18n from '@/locales'
+
 export interface IObject {
   [prop: string]: string
 }

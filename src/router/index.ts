@@ -38,7 +38,7 @@ const constantRoutes: Array<RouteRecordRaw> = [
         name: DashboardName,
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
         meta: {
-          title: 'Dashboard',
+          title: 'route.dashboard.index',
           icon: 'el-icon-eleme',
           affix: true
         }
@@ -59,7 +59,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'Document',
         component: () => import(/* webpackChunkName: "document" */ '@/views/document/index.vue'),
         meta: {
-          title: 'Document',
+          title: 'route.document.index',
           icon: 'documentation'
         }
       }

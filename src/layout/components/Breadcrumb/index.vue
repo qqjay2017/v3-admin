@@ -6,9 +6,9 @@
         v-if="index == levelList.length - 1"
         class="no-redirect"
       >
-          {{ item.meta.title }}
+          {{ titleTransform(item.meta.title)  }}
       </span>
-      <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+      <a v-else @click.prevent="handleLink(item)">{{  titleTransform(item.meta.title)  }}</a>
 
     </ElBreadcrumbItem>
   </ElBreadcrumb>
@@ -18,12 +18,13 @@
 import { defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { RouteLocationMatched, RouteLocationRaw, useRoute, useRouter } from 'vue-router'
 import { compile } from 'path-to-regexp'
-import { DashboardName } from '@/utils/constance'
+import { useI18n } from 'vue-i18n'
 type PartialRouteLocationMatched = Partial<RouteLocationMatched>
 
 export default defineComponent({
   name: 'Breadcrumb',
   setup () {
+    const { t } = useI18n()
     const route = useRoute()
     const router = useRouter()
     // 导航列表 存放matched里筛选的路由记录
@@ -35,7 +36,7 @@ export default defineComponent({
       if (!name) {
         return false
       }
-      return (name as string).trim().toLocaleLowerCase() === DashboardName.toLocaleLowerCase()
+      return (name as string).trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
     }
 
     // 获取面包屑导航
@@ -50,7 +51,7 @@ export default defineComponent({
         matched = ([{
           path: '/dashboard',
           meta: {
-            title: 'Dashboard'
+            title: t('route.dashboard.index')
           }
         }] as PartialRouteLocationMatched[]).concat(matched)
       }
@@ -82,9 +83,14 @@ export default defineComponent({
       router.push(pathCompile(path))
     }
 
+    const titleTransform = (title:string) => {
+      return title.indexOf('.') > 0 ? t(title) : title
+    }
+
     return {
       levelList,
-      handleLink
+      handleLink,
+      titleTransform
     }
   }
 })

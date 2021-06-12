@@ -12,7 +12,7 @@
           <i  v-if="icon && icon.includes('el-icon')" :class="icon"></i>
           <svg-icon  v-else-if="icon" class="menu-icon" :icon-class="icon"></svg-icon>
           <template  #title>
-            <span>{{ theOnlyOneChildRoute.meta.title }}</span>
+            <span>{{ titleTransform(theOnlyOneChildRoute.meta.title) }}</span>
           </template>
         </el-menu-item>
       </SidebarItemLink>
@@ -30,7 +30,7 @@
           class="menu-icon"
           :icon-class="item.meta.icon"
         ></svg-icon>
-        <span class="submenu-title">{{ item.meta.title }}</span>
+        <span class="submenu-title">{{  titleTransform(item.meta.title) }}</span>
       </template>
 
       <SidebarItem
@@ -50,6 +50,7 @@ import { RouteRecordRaw } from 'vue-router'
 import path from 'path'
 import SidebarItemLink from '@/layout/components/sidebar/SidebarItemLink.vue'
 import { isExternal } from '@/utils/validate'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'SidebarItem',
@@ -68,6 +69,7 @@ export default defineComponent({
     }
   },
   setup (props) {
+    const { t } = useI18n()
     const { item } = toRefs(props)
     //  子路需要渲染的,排除hidden的
     const showingChild = computed(() => {
@@ -96,6 +98,7 @@ export default defineComponent({
       }
       //  // showingChildNumber === 0 无可渲染的子路由 （可能有子路由 hidden属性为true）
       // 无可渲染children时 把当前路由item作为仅有的子路由渲染
+
       return {
         ...props.item,
         path: '',
@@ -127,11 +130,17 @@ export default defineComponent({
       return !alwaysShowRootMenu.value && (!theOnlyOneChildRoute?.value?.children || noShowingChildren.value)
     })
 
+    const titleTransform = (title:string) => {
+      return title.indexOf('.') > 0 ? t(title) : title
+    }
+
     return {
+      t,
       theOnlyOneChildRoute,
       icon,
       resolvePath,
-      isRenderSingleRoute
+      isRenderSingleRoute,
+      titleTransform
     }
   }
 })
@@ -140,8 +149,8 @@ export default defineComponent({
 <style lang="scss" >
 .sidebar-item-container {
   .menu-icon {
-    margin-right: 16px;
-    margin-left: 5px;
+    margin-right: 5px;
+    width: 24px!important;
     vertical-align: middle;
   }
 }
