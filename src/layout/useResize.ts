@@ -1,10 +1,10 @@
 import { onMounted, onBeforeMount, onUnmounted, watch } from 'vue'
 import { getNamespace, Modules, useStore } from '@/store'
 import { AppModuleMutations } from '@/store/modules/app'
-import { onBeforeRouteUpdate, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const { body } = document
-const WIDTH = 992 // refer to Bootstrap's responsive design
+const WIDTH = 792 // refer to Bootstrap's responsive design
 
 export default function useResize () {
   const store = useStore()

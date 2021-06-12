@@ -1,12 +1,12 @@
 <template>
   <div>
-    <ElDropdown trigger="click" @command="handleSizeCommand">
+    <ElDropdown trigger="click" @command="handleLanguageCommand">
       <div class="icon-btn">
-        <svg-icon class-name="size-icon" icon-class="size" />
+        <svg-icon class-name="size-icon" icon-class="language" />
       </div>
       <template #dropdown>
         <ElDropdownMenu>
-          <ElDropdownItem v-for="item in sizeOptions" :key="item.value" :command="item.value" :disabled="item.value === size">
+          <ElDropdownItem v-for="item in languageOptions" :key="item.value" :command="item.value" :disabled="item.value === curLanguage">
               {{item.label}}
           </ElDropdownItem>
         </ElDropdownMenu>
@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts">
-import { Size } from '@/plugins/element'
 import {
   ComponentInternalInstance,
   ComponentPublicInstance,
@@ -31,9 +30,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { getNamespace, Modules, useStore } from '@/store'
 import { TagsViewModuleMutations } from '@/store/modules/tagsView'
 import { AppModuleMutations } from '@/store/modules/app'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
-  name: 'SizeSelect',
+  name: 'LangSelect',
   components: {
     ElDropdown,
     ElDropdownMenu,
@@ -44,13 +44,15 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
-    const sizeOptions = [
-      { label: 'Default', value: 'default' },
-      { label: 'Medium', value: 'medium' },
-      { label: 'Small', value: 'small' },
-      { label: 'Mini', value: 'mini' }
+    const { t, locale } = useI18n()
+
+    const curLanguage = computed(() => store.state.app.language)
+
+    const languageOptions = [
+      { label: 'cn 简体中文', value: 'zh-CN' },
+      { label: 'us English', value: 'en-US' }
     ]
-    const size = computed(() => store.state.app.size)
+
     // 刷新当前路由
     const refreshView = () => {
       const { fullPath } = route
@@ -63,20 +65,20 @@ export default defineComponent({
     }
 
     const { proxy } = getCurrentInstance() as ComponentInternalInstance
-    const handleSizeCommand = (command:Size) => {
-      (proxy as ComponentPublicInstance).$ELEMENT.size = command
-      store.commit(getNamespace(Modules.App, AppModuleMutations.setSize), command)
+    const handleLanguageCommand = (command:string) => {
+      locale.value = command
+      store.commit(getNamespace(Modules.App, AppModuleMutations.setLanguage), command)
       store.commit(getNamespace(Modules.TagsView, TagsViewModuleMutations.DEL_ALL_CACHED_VIEWS))
       refreshView()
       ElMessage.success({
         type: 'success',
-        message: 'Switch Size Success'
+        message: 'Switch Language Success'
       })
     }
     return {
-      sizeOptions,
-      size,
-      handleSizeCommand
+      languageOptions,
+      handleLanguageCommand,
+      curLanguage
     }
   }
 })

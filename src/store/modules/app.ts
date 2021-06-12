@@ -1,12 +1,14 @@
 import { RootState } from '@/store'
 import { Size } from '@/plugins/element'
 import { Module, MutationTree } from 'vuex'
+import { getLocale, setLanguage } from '@/locales'
 
 export enum AppModuleMutations {
   toggleSidebar='toggleSidebar',
   setSize='setSize',
   closeSideBar='closeSideBar',
   toggleDevice='toggleDevice',
+  setLanguage='setLanguage',
 }
 
 const state:()=>{
@@ -15,14 +17,16 @@ const state:()=>{
     withoutAnimation: boolean
   },
   size:Size,
-  device:string
+  device:string,
+  language:string
 } = () => ({
   sidebar: {
     opened: true,
     withoutAnimation: false
   },
   size: 'default',
-  device: 'desktop'
+  device: 'desktop',
+  language: getLocale()
 })
 
 export type AppState = ReturnType<typeof state>
@@ -41,6 +45,10 @@ const mutations:MutationTree<AppState> = {
   },
   [AppModuleMutations.toggleDevice] (state, device) {
     state.device = device
+  },
+  [AppModuleMutations.setLanguage] (state, language:string) {
+    state.language = language
+    setLanguage(language)
   }
 }
 

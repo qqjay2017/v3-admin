@@ -5,6 +5,7 @@ import appModule, { AppState } from '@/store/modules/app'
 import tagsViewModule, { TagsViewState } from '@/store/modules/tagsView'
 import settingsModule, { SettingsState } from '@/store/modules/settings'
 import userModule, { UserState } from '@/store/modules/user'
+import { Size } from '@/plugins/element'
 
 export enum Modules {
   App = 'app',
@@ -25,7 +26,7 @@ export const storeKey: InjectionKey<Store<RootState>> = Symbol('')
 const myPlugin = createPersistedState({
   storage: window.localStorage,
   key: 'vuex_app',
-  paths: ['app']
+  paths: ['app.sidebar', 'app.opened', 'app.size', 'app.device']
 
 })
 const persisteSettingsState = createPersistedState({

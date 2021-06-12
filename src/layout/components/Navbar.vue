@@ -11,11 +11,15 @@
         <ElTooltip content="global size" effect="dark" placement="bottom">
           <SizeSelect class="right-menu-item hover-effect"/>
         </ElTooltip>
+        <ElTooltip content="global language" effect="dark" placement="bottom">
+          <LangSelect />
+        </ElTooltip>
+
       </template>
       <ElDropdown trigger="click" @command="handleCommand">
         <div class="avatar-wrapper">
           <img v-if="userInfo.avatar_url" :src="userInfo.avatar_url" class="user-avatar">
-          <span class="user-name">{{userInfo.name}}</span>
+          <span class="user-name">{{ userInfo.name }}</span>
           <i class="el-icon-arrow-down el-icon--right"></i>
         </div>
         <template #dropdown>
@@ -43,10 +47,11 @@ import { AppModuleMutations } from '@/store/modules/app'
 import { UserModuleAction } from '@/store/modules/user'
 import { useRoute } from 'vue-router'
 import qs from 'qs'
+import LangSelect from '@/components/LangSelect/index.vue'
 
 export default defineComponent({
   name: 'Navbar',
-  components: { SizeSelect, ScreenFull, Breadcrumb, Hambuger, ElTooltip, ElDropdown, ElDropdownMenu, ElDropdownItem },
+  components: { LangSelect, SizeSelect, ScreenFull, Breadcrumb, Hambuger, ElTooltip, ElDropdown, ElDropdownMenu, ElDropdownItem },
   emits: ['showSetting'],
   setup (_, { emit }) {
     const store = useStore()
@@ -135,14 +140,17 @@ export default defineComponent({
         }
       }
     }
+
     .avatar-wrapper {
       display: flex;
       align-items: center;
       margin-top: 5px;
       position: relative;
+
       .user-name {
-        padding:0 6px
+        padding: 0 6px
       }
+
       .user-avatar {
         cursor: pointer;
         width: 20px;
@@ -151,6 +159,11 @@ export default defineComponent({
       }
     }
 
+    .right-menu-item {
+      i {
+        font-size: 16px;
+      }
+    }
   }
 }
 </style>

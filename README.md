@@ -53,6 +53,8 @@ echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > comm
 
 ## 部署
 
+#### 腾讯云部署
+
 > scp -r  .dist/* root@101.32.10.202:/home/html
 
 
