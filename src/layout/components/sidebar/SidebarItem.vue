@@ -46,7 +46,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue'
-import { ElMenuItem, ElSubmenu } from 'element-plus'
 import { RouteRecordRaw } from 'vue-router'
 import path from 'path'
 import SidebarItemLink from '@/layout/components/sidebar/SidebarItemLink.vue'
@@ -55,9 +54,8 @@ import { isExternal } from '@/utils/validate'
 export default defineComponent({
   name: 'SidebarItem',
   components: {
-    SidebarItemLink,
-    ElMenuItem,
-    ElSubmenu
+    SidebarItemLink
+
   },
   props: {
     item: { // 当前路由（此时的父路由）

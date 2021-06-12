@@ -28,7 +28,6 @@ import Sidebar from '@/layout/components/sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 import Navbar from '@/layout/components/Navbar.vue'
 import TagsView from '@/layout/components/TagsView/index.vue'
-import { ElDrawer } from 'element-plus'
 import { getNamespace, Modules, useStore } from '@/store'
 import varibalse from '@/styles/variables.scss'
 import Settings from '@/layout/components/Settings/index.vue'
@@ -37,7 +36,7 @@ import { AppModuleMutations } from '@/store/modules/app'
 
 export default defineComponent({
   name: 'Layout',
-  components: { Settings, TagsView, Navbar, Sidebar, AppMain, ElDrawer },
+  components: { Settings, TagsView, Navbar, Sidebar, AppMain },
   setup () {
     const store = useStore()
     useResize()

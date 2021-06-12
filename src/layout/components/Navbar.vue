@@ -37,7 +37,6 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElTooltip } from 'element-plus'
 import Hambuger from './Hambuger/index.vue'
 import Breadcrumb from '@/layout/components/Breadcrumb/index.vue'
 import ScreenFull from '@/components/ScreenFull/index.vue'
@@ -52,7 +51,7 @@ import SvgIcon from '@/components/SvgIcon/index.vue'
 
 export default defineComponent({
   name: 'Navbar',
-  components: { SvgIcon, LangSelect, SizeSelect, ScreenFull, Breadcrumb, Hambuger, ElTooltip, ElDropdown, ElDropdownMenu, ElDropdownItem },
+  components: { SvgIcon, LangSelect, SizeSelect, ScreenFull, Breadcrumb, Hambuger },
   emits: ['showSetting'],
   setup (_, { emit }) {
     const store = useStore()

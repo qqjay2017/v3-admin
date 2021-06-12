@@ -50,8 +50,8 @@ export default defineComponent({
     const curLanguage = computed(() => store.state.app.language)
 
     const languageOptions = [
-      { label: 'cn 简体中文', value: 'zh-CN' },
-      { label: 'us English', value: 'en-US' }
+      { label: 'cn 简体中文', value: 'zh-cn' },
+      { label: 'us English', value: 'en' }
     ]
 
     // 刷新当前路由

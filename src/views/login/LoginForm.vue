@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { ElButton, ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { getNamespace, Modules, useStore } from '@/store'
 import { UserModuleAction } from '@/store/modules/user'
 import { LocationQuery, useRoute, useRouter } from 'vue-router'
@@ -35,12 +35,7 @@ import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'LoginForm',
-  components: {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElButton
-  },
+
   setup () {
     const { t } = useI18n()
 

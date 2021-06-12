@@ -4,30 +4,37 @@ import elementEnLocale from 'element-plus/lib/locale/lang/en'
 import elementZhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
 // User defined lang
-import enLocale from './en-US'
-import zhLocale from './zh-CN' // import from runtime only
+import enLocale from './en'
+import zhLocale from './zh' // import from runtime only
 
-// import { getLanguage } from '@/utils/cookies'
+console.log(elementEnLocale.name)
 
 const getLanguage = () => localStorage.getItem('language')
 
 const messages = {
-  'en-US': {
+
+  [elementEnLocale.name]: {
+
     ...enLocale,
-    ...elementEnLocale
+    ...elementEnLocale,
+    el: elementEnLocale.el
+
   },
-  'zh-CN': {
+  [elementZhLocale.name]: {
     ...zhLocale,
-    ...elementZhLocale
+    ...elementZhLocale,
+    el: elementZhLocale.el
   }
 }
+
+console.log(messages, 'messages', elementZhLocale.name, elementEnLocale.name)
 
 export const getLocale = () => {
   const storageLanguage = getLanguage()
   if (storageLanguage) {
     return storageLanguage
   }
-  const language = navigator.language
+  const language = navigator.language.split('-')[0]
   const locales = Object.keys(messages)
   for (const locale of locales) {
     if (language.indexOf(locale) > -1) {
@@ -35,8 +42,8 @@ export const getLocale = () => {
     }
   }
 
-  // Default language is zh-CN
-  return 'zh-CN'
+  // Default language is zh
+  return 'zh-cn'
 }
 export const setLanguage = (lang:string) => localStorage.setItem('language', lang)
 

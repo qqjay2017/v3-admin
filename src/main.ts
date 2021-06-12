@@ -30,10 +30,11 @@ async function bootstrap () {
   app
     .use(store, storeKey)
     .use(router)
-    .use(installElementPlus, {
-      size: store.state.app.size
-    })
     .use(installI18n)
+    .use(installElementPlus, {
+      size: store.state.app.size,
+      i18n: installI18n.global.t
+    })
     .use(initSvgIcon)
     .use(Particles)
 

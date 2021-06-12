@@ -21,11 +21,10 @@ import { computed, defineComponent } from 'vue'
 import ThemePicker from '@/components/ThemePicker/index.vue'
 import { getNamespace, Modules, useStore } from '@/store'
 import { SettingsModuleMutations } from '@/store/modules/settings'
-import { ElSwitch } from 'element-plus'
 
 export default defineComponent({
   name: 'Settings',
-  components: { ThemePicker, ElSwitch },
+  components: { ThemePicker },
   setup () {
     const store = useStore()
     const tagsView = computed({

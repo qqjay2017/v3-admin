@@ -1,32 +1,24 @@
-// import 'element-plus/lib/theme-chalk/index.css'
-import lang from 'element-plus/lib/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
-import {
-  locale,
-  ElButton
-} from 'element-plus'
+import ElementPlus from 'element-plus'
 import { App } from 'vue'
+import { TranslateResult, Path } from 'vue-i18n'
 
-import i18n from '@/locales'
 // $ELEMENT size属性类型
 export type Size = 'default' | 'medium' | 'small' | 'mini'
 
 interface ElementOptions {
-  size:Size
+  size:Size,
+  i18n:(key: Path)=>TranslateResult
 }
 export default (app:App<HTMLElement>, options:ElementOptions) :void => {
-  locale(lang)
-  // 按需导入组件列表
-  const components = [
-    ElButton
-  ]
-
-  components.forEach(component => {
-    app.component(component.name, component)
+  app.use(ElementPlus, {
+    size: options.size || 'small',
+    i18n: options.i18n
   })
 
   app.config.globalProperties.$ELEMENT = {
     size: options.size || 'small',
-    i18n: i18n.global.t
+    i18n: options.i18n
+
   }
 }

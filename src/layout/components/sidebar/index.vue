@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-wrapper">
     <Logo v-if="showLogo" :collapse="isCollapse" />
-    <ScrollPane>
+    <ElScrollbar>
       <el-menu
         class="sidebar-container-menu"
         :class="{
@@ -22,7 +22,7 @@
           :base-path="i.path"
         />
       </el-menu>
-    </ScrollPane>
+    </ElScrollbar>
   </div>
 </template>
 
@@ -31,7 +31,6 @@ import { computed, defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 // 导入scss变量在组件中使用
 import variables from '@/styles/variables.scss'
-import { ElMenu, ElScrollbar } from 'element-plus'
 import SidebarItem from '@/layout/components/sidebar/SidebarItem.vue'
 import { routes } from '@/router'
 import { useStore } from '@/store'
@@ -41,10 +40,8 @@ import Logo from '@/layout/components/Logo.vue'
 export default defineComponent({
   name: 'Sidebar',
   components: {
-    ScrollPane: ElScrollbar,
     Logo,
-    SidebarItem,
-    ElMenu
+    SidebarItem
   },
   setup () {
     const route = useRoute()
