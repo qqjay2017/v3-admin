@@ -1,8 +1,12 @@
 'use strict'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const dayjs = require('dayjs')
 const resolve = dir => path.join(__dirname, dir)
+
+const time = dayjs().format('YYYY-M-D HH:mm:ss')
+process.env.VUE_APP_UPDATE_TIME = time
 
 function chainWebpack (config) {
   // 在已有的svg loader配置中 排除掉对src/icons里svg进行转换
