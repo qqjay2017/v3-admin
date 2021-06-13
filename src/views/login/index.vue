@@ -4,8 +4,12 @@
       <LangSelect />
     </div>
     <div class="login-card">
-      <h3 class="login-title">{{t('component.login.plzLogin')}}</h3>
       <LoginForm/>
+      <div class="or-wrap">
+        <div class="or-line"></div>
+        <span>or</span>
+        <div class="or-line"></div>
+      </div>
       <div class="more-login">
         <div class="type" @click="loginByGitee">
           <i class="iconfont icon-gitee"></i>
@@ -80,6 +84,22 @@ export default defineComponent({
     align-items: center;
     padding: 16px;
     border-radius: 4px;
+    .or-wrap {
+      display: flex;
+      font-size: 16px;
+      align-items: center;
+      color: #fff;
+      margin-bottom: 16px;
+      .or-line {
+        width: 40px;
+        height: 1px;
+        background-color: #fff;
+      }
+      span {
+        padding: 0 8px;
+      }
+
+    }
   }
   &-tool-wrap {
     position: fixed;

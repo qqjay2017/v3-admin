@@ -5,23 +5,27 @@
       ref="loginFormRef"
       :rules="loginRules">
       <el-form-item prop="username">
-        <el-input :placeholder="t('component.login.accountMsg')"
+        <el-input
+          :style="{border:0}"
+          :placeholder="t('component.login.accountMsg')"
                   v-model="model.username"
                   prefix-icon="iconfont icon-wode"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input :placeholder="t('component.login.passwordMsg')"
+        <el-input
+          :style="{border:0}"
+          :placeholder="t('component.login.passwordMsg')"
                   v-model="model.password"
                   show-password
                   prefix-icon="iconfont icon-lock"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" class="login-button" @click="handleLogin">
-          {{t('component.login.login')}}
-        </el-button>
-      </el-form-item>
-    </el-form>
 
+    </el-form>
+   <div class="login-btn-wrap">
+     <el-button type="primary" class="login-button" @click="handleLogin">
+       {{t('component.login.login')}}
+     </el-button>
+   </div>
   </div>
 </template>
 
@@ -92,10 +96,24 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .login-form {
+  position: relative;
+  padding: 20px 8px;
+  border-radius: 8px;
+  background-color: #fff;
   width: 300px;
+  margin-bottom:50px;
 
-  .login-button {
-    width: 100%;
+  ::v-deep .el-input__inner  {
+  border: 0;
+}
+  .login-btn-wrap {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    .login-button {
+      width: 100px;
+    }
+
   }
 }
 
