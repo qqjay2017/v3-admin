@@ -31,6 +31,7 @@ export default function useResize () {
     const isMobile = getIsMobile()
     if (isMobile) {
       store.commit(getNamespace(Modules.App, AppModuleMutations.toggleDevice), 'mobile')
+      store.commit(getNamespace(Modules.App, AppModuleMutations.setSize), 'mini')
       store.commit(getNamespace(Modules.App, AppModuleMutations.closeSideBar), { withoutAnimation: true })
     }
   })

@@ -107,14 +107,18 @@ export default defineComponent({
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 9;
+  z-index: 99;
   width: calc(100% - #{$sideBarWidth});
   transition: width 0.28s;
+
 }
 .hideSidebar .fixed-header {
   width: calc(100% - 54px)
 }
 .mobile .fixed-header {
   width: 100%;
+}
+.header {
+  background-color: #fff;
 }
 </style>

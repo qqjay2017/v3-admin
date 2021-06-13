@@ -1,12 +1,13 @@
 <template>
     <div class="app-main">
-        <router-view v-slot={Component}>
-            <transition name="fade-transition" mode="out-in">
-                <keep-alive :include="cachedViews">
-                    <component :is="Component" :key="key" />
-                </keep-alive>
-            </transition>
-        </router-view>
+
+         <router-view v-slot={Component}>
+           <transition name="fade-transition" mode="out-in">
+             <keep-alive :include="cachedViews">
+               <component :is="Component" :key="key" />
+             </keep-alive>
+           </transition>
+         </router-view>
     </div>
 </template>
 
@@ -39,7 +40,6 @@ export default defineComponent({
   min-height: calc(100vh - 50px);
   width: 100%;
   position: relative;
-  overflow: hidden;
 }
 .fixed-header+.app-main {
   padding-top: 50px;
