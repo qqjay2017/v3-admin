@@ -62,6 +62,7 @@ const actions: ActionTree<UserState, RootState> = {
       const token = username + password
       commit(UserModuleMutations.SET_TOKEN, token)
       commit(UserModuleMutations.SET_AUTH_TYPE, '---')
+      setAuthType('---')
       setToken(token)
       resolve(token)
     })
@@ -87,7 +88,6 @@ const actions: ActionTree<UserState, RootState> = {
     return new Promise((resolve, reject) => {
       getGiteeUserInfo(token).then(res => {
         const { id, name, avatar_url } = res.data
-
         commit(UserModuleMutations.SET_USER_INFO, {
           userType: 'gitee',
           id: id,
@@ -96,7 +96,6 @@ const actions: ActionTree<UserState, RootState> = {
         })
         resolve(res)
       }).catch((err) => {
-        console.log(err)
         reject(err)
       })
     })
