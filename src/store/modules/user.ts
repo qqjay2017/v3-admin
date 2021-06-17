@@ -84,7 +84,7 @@ const actions: ActionTree<UserState, RootState> = {
       resolve(token)
     })
   },
-  [UserModuleAction.giteeUserInfo] ({ commit }, token) {
+  [UserModuleAction.giteeUserInfo] ({ commit, dispatch }, token) {
     return new Promise((resolve, reject) => {
       getGiteeUserInfo(token).then(res => {
         const { id, name, avatar_url } = res.data
@@ -96,6 +96,7 @@ const actions: ActionTree<UserState, RootState> = {
         })
         resolve(res)
       }).catch((err) => {
+        dispatch('logout')
         reject(err)
       })
     })
