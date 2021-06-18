@@ -149,6 +149,7 @@ export default defineComponent({
 <style lang="scss" >
 .sidebar-item-container {
   .menu-icon {
+    margin-right: 4px;
     width: 24px!important;
     vertical-align: middle;
   }
