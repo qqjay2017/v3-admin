@@ -1,8 +1,10 @@
 <template>
     <div class="document">
       <ul class="file-list">
-        <li @click="showReadme()">readme</li>
-        <li v-for="i in files" :key="i.originPath" @click="showMarkdown(i.originPath)">
+        <li @click="showReadme()" :style="getLiStyle('_readme_')">readme</li>
+        <li v-for="i in files" :key="i.originPath" @click="showMarkdown(i.originPath)"
+            :style="getLiStyle(i.originPath)"
+        >
           {{i.fileName}}
         </li>
       </ul>
@@ -11,13 +13,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import useMarkdown from '@/views/document/useMarkdown'
 import path from 'path'
+import { useStore } from '@/store'
 export default defineComponent({
   name: 'Document',
   setup () {
     const { files } = useMarkdown()
+    const store = useStore()
     const curKey = ref('')
     const htmlStr = ref('')
 
@@ -31,12 +35,31 @@ export default defineComponent({
       const html = require('../../../README.md')
       htmlStr.value = html
     }
+    const theme = computed(() => {
+      return store.state.settings.theme
+    })
+    const getLiStyle = (path:string) => {
+      if (curKey.value && curKey.value === path) {
+        return {
+          backgroundColor: theme.value,
+          color: '#fff'
+        }
+      } else {
+        return {
+          backgroundColor: '#fff'
+
+        }
+      }
+    }
+
     return {
       files,
       htmlStr,
       curKey,
       showMarkdown,
-      showReadme
+      showReadme,
+      getLiStyle,
+      theme
     }
   }
 })
@@ -70,11 +93,6 @@ export default defineComponent({
       line-height: 18px;
       font-size: 14px;
       padding:8px 12px;
-
-      &:nth-child(2n) {
-          background-color: $theme;
-        color:#fff;
-      }
     }
   }
   .html-wrap {
