@@ -8,7 +8,7 @@
         v-if="theOnlyOneChildRoute && theOnlyOneChildRoute.meta"
         :to="resolvePath(theOnlyOneChildRoute.path)"
       >
-        <el-menu-item :index="resolvePath(theOnlyOneChildRoute.path)">
+        <el-menu-item :style="{padding: '0 14px'}" :index="resolvePath(theOnlyOneChildRoute.path)">
           <i  v-if="icon && icon.includes('el-icon')" :class="icon"></i>
           <svg-icon  v-else-if="icon" class="menu-icon" :icon-class="icon"></svg-icon>
           <template  #title>
@@ -149,7 +149,6 @@ export default defineComponent({
 <style lang="scss" >
 .sidebar-item-container {
   .menu-icon {
-    margin-right: 5px;
     width: 24px!important;
     vertical-align: middle;
   }

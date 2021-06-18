@@ -126,3 +126,9 @@ const mutations: MutationTree<ISettingsState> = {
 
 
 ```
+
+#### 支持markdown
+
+```
+yarn add html-loader@1 markdown-loader -D
+```

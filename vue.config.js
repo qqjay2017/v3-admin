@@ -27,6 +27,16 @@ function chainWebpack (config) {
       symbolId: 'icon-[name]' // symbol id命名格式 icon-图标名称
     })
     .end()
+  //
+  config.module
+    .rule('md')
+    .test(/\.md/)
+    .use('html-loader')
+    .loader('html-loader')
+    .end()
+    .use('markdown-loader')
+    .loader('markdown-loader')
+    .end()
 }
 
 module.exports = {

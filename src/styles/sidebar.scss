@@ -52,6 +52,7 @@
 
     // 菜单收起时的样式调整
     .el-menu--collapse {
+      width: 54px;
       .submenu-title {
         display: none;
       }
@@ -61,6 +62,7 @@
       .el-menu {
         .el-menu-item {
           background-color: $subMenuBg !important;
+
 
           &:hover {
             background-color: $subMenuHover !important;
@@ -106,6 +108,14 @@
 
     }
 
+  }
+  .el-menu-item {
+    div {
+      padding:0 14px!important;
+    }
+  }
+  .el-submenu__title {
+    padding-left: 14px!important;
   }
 
 }
