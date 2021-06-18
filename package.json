@@ -16,6 +16,7 @@
     "dayjs": "^1.10.5",
     "element-plus": "^1.0.2-beta.44",
     "github-markdown-css": "^4.0.0",
+    "highlight.js": "^11.0.1",
     "html-loader": "1",
     "markdown-loader": "^6.0.0",
     "normalize.css": "^8.0.1",

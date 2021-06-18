@@ -89,17 +89,19 @@ tcb login --apiKeyId {{secrets.secretId}}  --apiKey  {{secrets.secretKey}}
 
 #### docker部署
 
+```json
+{
+    "docker:build": "docker build . -t vue3-element-admin",
+    "docker:run": "docker run -d -p 7000:7000 vue3-element-admin"
+}
 ```
-"docker:build": "docker build . -t vue3-element-admin",
-"docker:run": "docker run -d -p 7000:7000 vue3-element-admin"
-```
 
 
 
-###### 动态key
+#### 动态key
 
 
-```
+```ts
 // 定义state
 const state: ISettingsState = {
   theme: variables.theme,
@@ -129,6 +131,6 @@ const mutations: MutationTree<ISettingsState> = {
 
 #### 支持markdown
 
-```
+```sh
 yarn add html-loader@1 markdown-loader -D
 ```
