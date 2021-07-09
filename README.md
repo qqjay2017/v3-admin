@@ -4,7 +4,7 @@
 
 create project use / vue-cli@4 / vue@3 / typescript@4 /  element-plus@1 /  vue-i18n@9  and vuex@4 vue-router@4  
 
-[preview online](https://hello-cloudbase-2gynpr709b78f915-1258857408.tcloudbaseapp.com/)
+[preview online](https://my-vue-starter-1258857408.cos-website.ap-guangzhou.myqcloud.com)
 
 ## 已实现
 

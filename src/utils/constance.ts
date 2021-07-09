@@ -19,4 +19,4 @@ export const formula: IObject = {
   'light-9': 'color(primary tint(90%))'
 }
 
-export const giteeRedirectUri = location.origin + '/#/login-gitee'
+export const giteeRedirectUri = location.origin + '/login-gitee'

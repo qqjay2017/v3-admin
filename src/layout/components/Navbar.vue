@@ -68,7 +68,7 @@ export default defineComponent({
       store.dispatch(getNamespace(Modules.User, UserModuleAction.logout)).then(() => {
         let url = ''
         url += location.origin
-        url += `#/login?redirect=${route.path}`
+        url += `/login?redirect=${route.path}`
 
         const queryStr = qs.stringify(route.query)
         if (queryStr) {

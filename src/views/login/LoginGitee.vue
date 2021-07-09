@@ -87,7 +87,7 @@ export default defineComponent({
           token: access_token,
           type: 'gitee'
         }).then(() => {
-          location.replace(location.origin + '/#/')
+          location.replace(location.origin + '/')
         })
       }).catch((err) => {
         errResponse.value = err.request.response
@@ -100,7 +100,7 @@ export default defineComponent({
     const backLoginPage = () => {
       status.value = false
       setTimeout(() => {
-        window.location.href = location.origin + '/#login'
+        window.location.href = location.origin + '/login'
       }, 5000)
     }
 
