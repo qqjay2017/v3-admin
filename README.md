@@ -100,8 +100,6 @@ tcb login --apiKeyId {{secrets.secretId}}  --apiKey  {{secrets.secretKey}}
 
 #### 动态key
 
-
-
 ```ts
 // 定义state
 const state: ISettingsState = {
