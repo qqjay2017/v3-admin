@@ -1,0 +1,12 @@
+component: website
+name: vue-starter
+app: demo
+
+inputs:
+  src:
+    src: ./src
+    # 配置了这个hook每次发布的时候会先build
+    hook: npm run build
+    dist: ./dist
+  bucketName: my-vue-starter
+  protocol: https

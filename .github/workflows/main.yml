@@ -38,12 +38,12 @@ jobs:
         uses: actions/setup-node@v1.4.4
         with:
           node-version: "14.x"
-      - name: install cloudbase/cli global
+      - name: install serverless global
         run: |
-          npm install -g @cloudbase/cli;
-      - name: tcb login
+          npm install -g serverless;
+      - name: serverless login
         run: |
-          tcb login --apiKeyId ${{secrets.secretId}}  --apiKey  ${{secrets.secretKey}}
-      - name: Deploy
+          serverless  login --apiKeyId ${{secrets.secretId}}  --apiKey  ${{secrets.secretKey}}
+      - name: serverless Deploy
         run: |
-          cloudbase framework:deploy;
+          serverless deploy;
