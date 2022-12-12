@@ -23,7 +23,7 @@
     "normalize.css": "^8.0.1",
     "particles.vue3": "^1.10.0",
     "path-to-regexp": "6.2.0",
-    "qs": "^6.10.1",
+    "qs": "^6.10.3",
     "screenfull": "^5.1.0",
     "vue": "3.0.11",
     "vue-i18n": "^9.1.6",
